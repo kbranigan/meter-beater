@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A3432041589715100DBDD5E /* StreetSideAttributeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3432031589715100DBDD5E /* StreetSideAttributeCell.m */; };
 		0A4C4B4E157DA51F003919BB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4C4B4D157DA51F003919BB /* UIKit.framework */; };
 		0A4C4B50157DA51F003919BB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4C4B4F157DA51F003919BB /* Foundation.framework */; };
 		0A4C4B52157DA51F003919BB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4C4B51157DA51F003919BB /* CoreGraphics.framework */; };
@@ -15,22 +16,35 @@
 		0A4C4B5E157DA51F003919BB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C4B5D157DA51F003919BB /* AppDelegate.m */; };
 		0A4C4B61157DA51F003919BB /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A4C4B5F157DA51F003919BB /* MainStoryboard.storyboard */; };
 		0A4C4B64157DA51F003919BB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C4B63157DA51F003919BB /* ViewController.m */; };
+		0A4C4B6C157DA6E4003919BB /* MeterBeater.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C4B6B157DA6E4003919BB /* MeterBeater.m */; };
+		0A4C4B6F157DABFE003919BB /* StreetSideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C4B6E157DABFE003919BB /* StreetSideView.m */; };
+		0A4C4B721583EC6D003919BB /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C4B711583EC6D003919BB /* GraphView.m */; };
+		0A8680211596667400E6A5CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A8680201596667400E6A5CF /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A3432021589715100DBDD5E /* StreetSideAttributeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreetSideAttributeCell.h; sourceTree = "<group>"; };
+		0A3432031589715100DBDD5E /* StreetSideAttributeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreetSideAttributeCell.m; sourceTree = "<group>"; };
 		0A4C4B49157DA51F003919BB /* mb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A4C4B4D157DA51F003919BB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0A4C4B4F157DA51F003919BB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0A4C4B51157DA51F003919BB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		0A4C4B55157DA51F003919BB /* mb-Info.plist */ = {isa = PBXFileReference; path = "mb-Info.plist"; sourceTree = "<group>"; };
+		0A4C4B55157DA51F003919BB /* mb-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "mb-Info.plist"; sourceTree = "<group>"; };
 		0A4C4B57157DA51F003919BB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0A4C4B59157DA51F003919BB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		0A4C4B5B157DA51F003919BB /* mb-Prefix.pch */ = {isa = PBXFileReference; path = "mb-Prefix.pch"; sourceTree = "<group>"; };
-		0A4C4B5C157DA51F003919BB /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		0A4C4B5B157DA51F003919BB /* mb-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mb-Prefix.pch"; sourceTree = "<group>"; };
+		0A4C4B5C157DA51F003919BB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0A4C4B5D157DA51F003919BB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0A4C4B60157DA51F003919BB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		0A4C4B62157DA51F003919BB /* ViewController.h */ = {isa = PBXFileReference; path = ViewController.h; sourceTree = "<group>"; };
+		0A4C4B62157DA51F003919BB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		0A4C4B63157DA51F003919BB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		0A4C4B6A157DA6E4003919BB /* MeterBeater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeterBeater.h; sourceTree = "<group>"; };
+		0A4C4B6B157DA6E4003919BB /* MeterBeater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeterBeater.m; sourceTree = "<group>"; };
+		0A4C4B6D157DABFE003919BB /* StreetSideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreetSideView.h; sourceTree = "<group>"; };
+		0A4C4B6E157DABFE003919BB /* StreetSideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreetSideView.m; sourceTree = "<group>"; };
+		0A4C4B701583EC6D003919BB /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
+		0A4C4B711583EC6D003919BB /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
+		0A8680201596667400E6A5CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A8680211596667400E6A5CF /* CoreLocation.framework in Frameworks */,
 				0A4C4B4E157DA51F003919BB /* UIKit.framework in Frameworks */,
 				0A4C4B50157DA51F003919BB /* Foundation.framework in Frameworks */,
 				0A4C4B52157DA51F003919BB /* CoreGraphics.framework in Frameworks */,
@@ -50,6 +65,7 @@
 		0A4C4B3E157DA51E003919BB = {
 			isa = PBXGroup;
 			children = (
+				0A8680201596667400E6A5CF /* CoreLocation.framework */,
 				0A4C4B53157DA51F003919BB /* mb */,
 				0A4C4B4C157DA51F003919BB /* Frameworks */,
 				0A4C4B4A157DA51F003919BB /* Products */,
@@ -77,12 +93,20 @@
 		0A4C4B53157DA51F003919BB /* mb */ = {
 			isa = PBXGroup;
 			children = (
+				0A4C4B6A157DA6E4003919BB /* MeterBeater.h */,
+				0A4C4B6B157DA6E4003919BB /* MeterBeater.m */,
 				0A4C4B5C157DA51F003919BB /* AppDelegate.h */,
 				0A4C4B5D157DA51F003919BB /* AppDelegate.m */,
 				0A4C4B5F157DA51F003919BB /* MainStoryboard.storyboard */,
 				0A4C4B62157DA51F003919BB /* ViewController.h */,
 				0A4C4B63157DA51F003919BB /* ViewController.m */,
 				0A4C4B54157DA51F003919BB /* Supporting Files */,
+				0A4C4B6D157DABFE003919BB /* StreetSideView.h */,
+				0A4C4B6E157DABFE003919BB /* StreetSideView.m */,
+				0A4C4B701583EC6D003919BB /* GraphView.h */,
+				0A4C4B711583EC6D003919BB /* GraphView.m */,
+				0A3432021589715100DBDD5E /* StreetSideAttributeCell.h */,
+				0A3432031589715100DBDD5E /* StreetSideAttributeCell.m */,
 			);
 			path = mb;
 			sourceTree = "<group>";
@@ -163,6 +187,10 @@
 				0A4C4B5A157DA51F003919BB /* main.m in Sources */,
 				0A4C4B5E157DA51F003919BB /* AppDelegate.m in Sources */,
 				0A4C4B64157DA51F003919BB /* ViewController.m in Sources */,
+				0A4C4B6C157DA6E4003919BB /* MeterBeater.m in Sources */,
+				0A4C4B6F157DABFE003919BB /* StreetSideView.m in Sources */,
+				0A4C4B721583EC6D003919BB /* GraphView.m in Sources */,
+				0A3432041589715100DBDD5E /* StreetSideAttributeCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +302,7 @@
 				0A4C4B69157DA51F003919BB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
