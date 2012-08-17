@@ -20,6 +20,9 @@
 		0A4C4B6F157DABFE003919BB /* StreetSideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C4B6E157DABFE003919BB /* StreetSideView.m */; };
 		0A4C4B721583EC6D003919BB /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C4B711583EC6D003919BB /* GraphView.m */; };
 		0A8680211596667400E6A5CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A8680201596667400E6A5CF /* CoreLocation.framework */; };
+		3D72599415DE5052005E4539 /* MBMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D72599315DE5052005E4539 /* MBMapViewController.m */; };
+		3D72599615DE51B8005E4539 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D72599515DE51B8005E4539 /* MapKit.framework */; };
+		3D72599815DE57CE005E4539 /* william.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3D72599715DE57CE005E4539 /* william.gpx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +48,10 @@
 		0A4C4B701583EC6D003919BB /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
 		0A4C4B711583EC6D003919BB /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
 		0A8680201596667400E6A5CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		3D72599215DE5052005E4539 /* MBMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMapViewController.h; sourceTree = "<group>"; };
+		3D72599315DE5052005E4539 /* MBMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMapViewController.m; sourceTree = "<group>"; };
+		3D72599515DE51B8005E4539 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		3D72599715DE57CE005E4539 /* william.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = william.gpx; path = ../william.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D72599615DE51B8005E4539 /* MapKit.framework in Frameworks */,
 				0A8680211596667400E6A5CF /* CoreLocation.framework in Frameworks */,
 				0A4C4B4E157DA51F003919BB /* UIKit.framework in Frameworks */,
 				0A4C4B50157DA51F003919BB /* Foundation.framework in Frameworks */,
@@ -65,6 +73,7 @@
 		0A4C4B3E157DA51E003919BB = {
 			isa = PBXGroup;
 			children = (
+				3D72599515DE51B8005E4539 /* MapKit.framework */,
 				0A8680201596667400E6A5CF /* CoreLocation.framework */,
 				0A4C4B53157DA51F003919BB /* mb */,
 				0A4C4B4C157DA51F003919BB /* Frameworks */,
@@ -98,6 +107,8 @@
 				0A4C4B5C157DA51F003919BB /* AppDelegate.h */,
 				0A4C4B5D157DA51F003919BB /* AppDelegate.m */,
 				0A4C4B5F157DA51F003919BB /* MainStoryboard.storyboard */,
+				3D72599215DE5052005E4539 /* MBMapViewController.h */,
+				3D72599315DE5052005E4539 /* MBMapViewController.m */,
 				0A4C4B62157DA51F003919BB /* ViewController.h */,
 				0A4C4B63157DA51F003919BB /* ViewController.m */,
 				0A4C4B54157DA51F003919BB /* Supporting Files */,
@@ -118,6 +129,7 @@
 				0A4C4B56157DA51F003919BB /* InfoPlist.strings */,
 				0A4C4B59157DA51F003919BB /* main.m */,
 				0A4C4B5B157DA51F003919BB /* mb-Prefix.pch */,
+				3D72599715DE57CE005E4539 /* william.gpx */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -148,7 +160,9 @@
 		0A4C4B40157DA51E003919BB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = MB;
 				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = Refactory;
 			};
 			buildConfigurationList = 0A4C4B43157DA51E003919BB /* Build configuration list for PBXProject "mb" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -174,6 +188,7 @@
 			files = (
 				0A4C4B58157DA51F003919BB /* InfoPlist.strings in Resources */,
 				0A4C4B61157DA51F003919BB /* MainStoryboard.storyboard in Resources */,
+				3D72599815DE57CE005E4539 /* william.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,6 +206,7 @@
 				0A4C4B6F157DABFE003919BB /* StreetSideView.m in Sources */,
 				0A4C4B721583EC6D003919BB /* GraphView.m in Sources */,
 				0A3432041589715100DBDD5E /* StreetSideAttributeCell.m in Sources */,
+				3D72599415DE5052005E4539 /* MBMapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +283,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mb/mb-Prefix.pch";
 				INFOPLIST_FILE = "mb/mb-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -278,6 +295,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mb/mb-Prefix.pch";
 				INFOPLIST_FILE = "mb/mb-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
