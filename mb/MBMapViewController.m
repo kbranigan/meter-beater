@@ -27,7 +27,7 @@
 {
     [super viewDidLoad];
     
-    [[self mapView] setShowsUserLocation:YES];
+    // [[self mapView] setShowsUserLocation:YES];
     [[self mapView] setRegion:MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(43.638778, -79.413366), 250.0, 250.0)];
     
     CLLocationCoordinate2D circle;
@@ -51,7 +51,8 @@
     
     [[self mapView] addOverlay:[MKPolygon polygonWithCoordinates:polygon count:sizeof(polygon) / sizeof(polygon[0])]];
     
-    if([CLLocationManager locationServicesEnabled])
+#warning XXX
+    if(NO && [CLLocationManager locationServicesEnabled])
     {
         locationManager = [[CLLocationManager alloc] init];
         
