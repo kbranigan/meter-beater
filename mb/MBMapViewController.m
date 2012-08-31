@@ -11,6 +11,14 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
+#import "MBAPIAccess.h"
+#import "MBResponse.h"
+
+static const CGFloat MBMapSpan = 250.0;
+
+static NSString * const MBMostRecentLatitude  = @"MBMostRecentLatitude";
+static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
+
 @interface MBMapViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
 
 @property(nonatomic, weak) IBOutlet MKMapView *mapView;
@@ -27,32 +35,15 @@
 {
     [super viewDidLoad];
     
-    // [[self mapView] setShowsUserLocation:YES];
-    [[self mapView] setRegion:MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(43.638778, -79.413366), 250.0, 250.0)];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    CLLocationCoordinate2D circle;
-    CLLocationCoordinate2D polyline[3];
-    CLLocationCoordinate2D polygon[4];
+    NSNumber *latitude  = [defaults objectForKey:MBMostRecentLatitude];
+    NSNumber *longitude = [defaults objectForKey:MBMostRecentLongitude];
     
-    circle = CLLocationCoordinate2DMake(43.638678, -79.413266);
+    if(latitude != nil && longitude != nil)
+        [[self mapView] setRegion:MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake([latitude floatValue], [longitude floatValue]), MBMapSpan, MBMapSpan)];
     
-    polyline[0] = CLLocationCoordinate2DMake(43.637778, -79.414366);
-    polyline[1] = CLLocationCoordinate2DMake(43.638078, -79.413766);
-    polyline[2] = CLLocationCoordinate2DMake(43.638778, -79.413366);
-    
-    polygon[0] = CLLocationCoordinate2DMake(43.638778, -79.415366);
-    polygon[1] = CLLocationCoordinate2DMake(43.638778, -79.414366);
-    polygon[2] = CLLocationCoordinate2DMake(43.637778, -79.414366);
-    polygon[3] = CLLocationCoordinate2DMake(43.637778, -79.415366);
-    
-    [[self mapView] addOverlay:[MKCircle circleWithCenterCoordinate:circle radius:10.0]];
-    
-    [[self mapView] addOverlay:[MKPolyline polylineWithCoordinates:polyline count:sizeof(polyline) / sizeof(polyline[0])]];
-    
-    [[self mapView] addOverlay:[MKPolygon polygonWithCoordinates:polygon count:sizeof(polygon) / sizeof(polygon[0])]];
-    
-#warning XXX
-    if(NO && [CLLocationManager locationServicesEnabled])
+    if([CLLocationManager locationServicesEnabled])
     {
         locationManager = [[CLLocationManager alloc] init];
         
@@ -65,40 +56,48 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-    [[self mapView] setCenterCoordinate:[newLocation coordinate]];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    CLLocationCoordinate2D coordinate = [newLocation coordinate];
+    
+    [defaults setFloat:coordinate.latitude  forKey:MBMostRecentLatitude];
+    [defaults setFloat:coordinate.longitude forKey:MBMostRecentLongitude];
+    
+    [MBAPIAccess requestObjectWithURL:[MBAPIAccess requestURLWithLatitude:coordinate.latitude longitude:coordinate.longitude] completionBlock:
+     ^(NSDictionary *object, NSError *error)
+     {
+         MBResponse *response = [MBResponse responseWithDictionary:object];
+         
+         [mapView removeOverlays:[mapView overlays]];
+         
+         for(MBAddress *address in [response addresses])
+         {
+             CLLocationCoordinate2D *vertices = malloc([[address vertices] count] * sizeof(CLLocationCoordinate2D));
+             
+             for(NSUInteger index = 0; index < [[address vertices] count]; index++)
+             {
+                 CGPoint point = [[[address vertices] objectAtIndex:index] CGPointValue];
+                 
+                 vertices[index] = CLLocationCoordinate2DMake(point.x, point.y);
+             }
+             
+             MKPolyline *polyline = [MKPolyline polylineWithCoordinates:vertices count:[[address vertices] count]];
+             
+             [mapView addOverlay:polyline];
+         }
+     }];
 }
 
 #pragma mark - MKMapViewDelegate conformance
 
 - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay
 {
-    if([overlay isKindOfClass:[MKCircle class]])
-    {
-        MKCircleView *circleView = [[MKCircleView alloc] initWithOverlay:overlay];
-        
-        return circleView;
-    }
-    else if([overlay isKindOfClass:[MKPolyline class]])
-    {
-        MKPolylineView *polylineView = [[MKPolylineView alloc] initWithOverlay:overlay];
-        
-        [polylineView setStrokeColor:[UIColor colorWithRed:1.0 green:0.5 blue:0.5 alpha:0.4]];
-        [polylineView setLineWidth:10.0];
-        
-        return polylineView;
-    }
-    else if([overlay isKindOfClass:[MKPolygon class]])
-    {
-        MKPolygonView *polygonView = [[MKPolygonView alloc] initWithOverlay:overlay];
-        
-        [polygonView setFillColor:[UIColor colorWithRed:0.0 green:0.5 blue:1.0 alpha:0.2]];
-        [polygonView setStrokeColor:[UIColor colorWithRed:0.0 green:0.5 blue:1.0 alpha:0.4]];
-        [polygonView setLineWidth:2.0];
-        
-        return polygonView;
-    }
+    MKPolylineView *view = [[MKPolylineView alloc] initWithOverlay:overlay];
     
-    return nil;
+    [view setStrokeColor:[UIColor redColor]];
+    [view setLineWidth:3.0];
+    
+    return view;
 }
 
 @end

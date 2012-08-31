@@ -20,6 +20,9 @@
 		0A4C4B6F157DABFE003919BB /* StreetSideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C4B6E157DABFE003919BB /* StreetSideView.m */; };
 		0A4C4B721583EC6D003919BB /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C4B711583EC6D003919BB /* GraphView.m */; };
 		0A8680211596667400E6A5CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A8680201596667400E6A5CF /* CoreLocation.framework */; };
+		3D6377A315F03A120075003C /* MBAPIAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6377A215F03A120075003C /* MBAPIAccess.m */; };
+		3D6377A615F03E100075003C /* MBAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6377A515F03E100075003C /* MBAddress.m */; };
+		3D6377A915F040970075003C /* MBResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6377A815F040970075003C /* MBResponse.m */; };
 		3D72599415DE5052005E4539 /* MBMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D72599315DE5052005E4539 /* MBMapViewController.m */; };
 		3D72599615DE51B8005E4539 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D72599515DE51B8005E4539 /* MapKit.framework */; };
 		3D72599815DE57CE005E4539 /* william.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3D72599715DE57CE005E4539 /* william.gpx */; };
@@ -48,6 +51,13 @@
 		0A4C4B701583EC6D003919BB /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
 		0A4C4B711583EC6D003919BB /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
 		0A8680201596667400E6A5CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		3D6377A115F03A120075003C /* MBAPIAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAPIAccess.h; sourceTree = "<group>"; };
+		3D6377A215F03A120075003C /* MBAPIAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAPIAccess.m; sourceTree = "<group>"; };
+		3D6377A415F03E100075003C /* MBAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAddress.h; sourceTree = "<group>"; };
+		3D6377A515F03E100075003C /* MBAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAddress.m; sourceTree = "<group>"; };
+		3D6377A715F040970075003C /* MBResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBResponse.h; sourceTree = "<group>"; };
+		3D6377A815F040970075003C /* MBResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBResponse.m; sourceTree = "<group>"; };
+		3D6377AA15F04A070075003C /* kevin.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = kevin.gpx; sourceTree = "<group>"; };
 		3D72599215DE5052005E4539 /* MBMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBMapViewController.h; sourceTree = "<group>"; };
 		3D72599315DE5052005E4539 /* MBMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMapViewController.m; sourceTree = "<group>"; };
 		3D72599515DE51B8005E4539 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -109,6 +119,9 @@
 				0A4C4B5F157DA51F003919BB /* MainStoryboard.storyboard */,
 				3D72599215DE5052005E4539 /* MBMapViewController.h */,
 				3D72599315DE5052005E4539 /* MBMapViewController.m */,
+				3D6377A115F03A120075003C /* MBAPIAccess.h */,
+				3D6377A215F03A120075003C /* MBAPIAccess.m */,
+				3D99449115E91DD800CA5AB4 /* Model */,
 				0A4C4B62157DA51F003919BB /* ViewController.h */,
 				0A4C4B63157DA51F003919BB /* ViewController.m */,
 				0A4C4B54157DA51F003919BB /* Supporting Files */,
@@ -130,8 +143,20 @@
 				0A4C4B59157DA51F003919BB /* main.m */,
 				0A4C4B5B157DA51F003919BB /* mb-Prefix.pch */,
 				3D72599715DE57CE005E4539 /* william.gpx */,
+				3D6377AA15F04A070075003C /* kevin.gpx */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3D99449115E91DD800CA5AB4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3D6377A715F040970075003C /* MBResponse.h */,
+				3D6377A815F040970075003C /* MBResponse.m */,
+				3D6377A415F03E100075003C /* MBAddress.h */,
+				3D6377A515F03E100075003C /* MBAddress.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,6 +232,9 @@
 				0A4C4B721583EC6D003919BB /* GraphView.m in Sources */,
 				0A3432041589715100DBDD5E /* StreetSideAttributeCell.m in Sources */,
 				3D72599415DE5052005E4539 /* MBMapViewController.m in Sources */,
+				3D6377A315F03A120075003C /* MBAPIAccess.m in Sources */,
+				3D6377A615F03E100075003C /* MBAddress.m in Sources */,
+				3D6377A915F040970075003C /* MBResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

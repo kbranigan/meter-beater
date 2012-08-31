@@ -1,14 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<gpx
-xmlns="http://www.topografix.com/GPX/1/1"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd"
-version="1.1" 
-creator="gpx-poi.com">
-
-   <wpt lat="43.638778" lon="-79.413366">
-      <time>2012-08-17T06:42:00Z</time>
-      <name>Toronto, ON, Canada</name>
-   </wpt>
-
+<?xml version="1.0"?>
+<gpx version="1.1" creator="Xcode">
+    
+    <wpt lat="43.638778" lon="-79.413366">
+        <name>William</name>
+	</wpt>
+    
 </gpx>
