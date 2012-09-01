@@ -39,6 +39,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 
 @implementation MBMapViewController
 {
+    BOOL                 ignoreRegionChanges;
     BOOL                 trackingEnabled;
     NSMutableDictionary *cachedOverlays;
 }
@@ -71,7 +72,8 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     if(latitude != nil && longitude != nil)
         [[self mapView] setRegion:MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake([latitude floatValue], [longitude floatValue]), MBMapSpan, MBMapSpan) animated:YES];
     
-    trackingEnabled = YES;
+    ignoreRegionChanges = YES;
+    trackingEnabled     = YES;
     
     [[self mapView] setShowsUserLocation:YES];
 }
@@ -80,7 +82,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
-    trackingEnabled = trackingEnabled && animated;
+    trackingEnabled = trackingEnabled && (ignoreRegionChanges || animated);
 }
 
 - (void)mapView:(MKMapView *)aMapView didUpdateUserLocation:(MKUserLocation *)userLocation
@@ -93,7 +95,11 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     [defaults setFloat:coordinate.longitude forKey:MBMostRecentLongitude];
     
     if(trackingEnabled)
+    {
+        ignoreRegionChanges = NO;
+        
         [[self mapView] setCenterCoordinate:coordinate animated:YES];
+    }
     
     [MBAPIAccess requestObjectWithURL:[MBAPIAccess requestURLWithLatitude:coordinate.latitude longitude:coordinate.longitude] completionBlock:
      ^(NSDictionary *object, NSError *error)
