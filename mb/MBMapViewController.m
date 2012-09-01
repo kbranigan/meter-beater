@@ -136,31 +136,11 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 
 #pragma mark - MKMapViewDelegate conformance
 
-- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+- (void)mapView:(MKMapView *)aMapView regionDidChangeAnimated:(BOOL)animated
 {
     trackingEnabled = trackingEnabled && (ignoreRegionChanges || animated);
-}
-
-- (void)mapView:(MKMapView *)aMapView didUpdateUserLocation:(MKUserLocation *)userLocation
-{
-    if([userLocation location] == nil)
-        return;
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    CLLocationCoordinate2D coordinate = [[userLocation location] coordinate];
-    
-    [defaults setFloat:coordinate.latitude  forKey:MBMostRecentLatitude];
-    [defaults setFloat:coordinate.longitude forKey:MBMostRecentLongitude];
-    
-    if(trackingEnabled)
-    {
-        ignoreRegionChanges = NO;
-        
-        [[self mapView] setCenterCoordinate:coordinate animated:YES];
-    }
-    
-    coordinate = [[self mapView] centerCoordinate];
+    CLLocationCoordinate2D coordinate = [[self mapView] centerCoordinate];
     
     [MBAPIAccess requestObjectWithURL:[MBAPIAccess requestURLWithLatitude:coordinate.latitude longitude:coordinate.longitude] completionBlock:
      ^(NSDictionary *object, NSError *error)
@@ -195,6 +175,26 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
              [cachedOverlays setObject:addedOverlay forKey:[address identifier]];
          }
      }];
+}
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    if([userLocation location] == nil)
+        return;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    CLLocationCoordinate2D coordinate = [[userLocation location] coordinate];
+    
+    [defaults setFloat:coordinate.latitude  forKey:MBMostRecentLatitude];
+    [defaults setFloat:coordinate.longitude forKey:MBMostRecentLongitude];
+    
+    if(trackingEnabled)
+    {
+        ignoreRegionChanges = NO;
+        
+        [[self mapView] setCenterCoordinate:coordinate animated:YES];
+    }
 }
 
 - (void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error
