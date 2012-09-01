@@ -19,9 +19,12 @@ static const CGFloat MBMapSpan = 250.0;
 static NSString * const MBMostRecentLatitude  = @"MBMostRecentLatitude";
 static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 
-@interface MBMapViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
+@interface MBMapViewController () <MKMapViewDelegate>
 
 @property(nonatomic, weak) IBOutlet MKMapView *mapView;
+@property(nonatomic, weak) IBOutlet UIToolbar *toolbar;
+
+- (IBAction)MB_didTapTrackButton:(UIBarButtonItem *)sender;
 
 @end
 
@@ -36,15 +39,22 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 
 @implementation MBMapViewController
 {
-    CLLocationManager   *locationManager;
+    BOOL                 trackingEnabled;
     NSMutableDictionary *cachedOverlays;
 }
 
-@synthesize mapView;
+@synthesize mapView, toolbar;
 
 - (UIColor *)MB_colourForValue:(CGFloat)value
 {
     return [UIColor colorWithHue:value / 3.0 saturation:1.0 brightness:1.0 alpha:0.5];
+}
+
+- (void)MB_didTapTrackButton:(UIBarButtonItem *)sender
+{
+    trackingEnabled = YES;
+    
+    [[self mapView] setCenterCoordinate:[[[[self mapView] userLocation] location] coordinate] animated:YES];
 }
 
 - (void)viewDidLoad
@@ -59,27 +69,31 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     NSNumber *longitude = [defaults objectForKey:MBMostRecentLongitude];
     
     if(latitude != nil && longitude != nil)
-        [[self mapView] setRegion:MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake([latitude floatValue], [longitude floatValue]), MBMapSpan, MBMapSpan)];
+        [[self mapView] setRegion:MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake([latitude floatValue], [longitude floatValue]), MBMapSpan, MBMapSpan) animated:YES];
     
-    if([CLLocationManager locationServicesEnabled])
-    {
-        locationManager = [[CLLocationManager alloc] init];
-        
-        [locationManager setDelegate:self];
-        [locationManager startUpdatingLocation];
-    }
+    trackingEnabled = YES;
+    
+    [[self mapView] setShowsUserLocation:YES];
 }
 
-#pragma mark - CLLocationManagerDelegate conformance
+#pragma mark - MKMapViewDelegate conformance
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+    trackingEnabled = trackingEnabled && animated;
+}
+
+- (void)mapView:(MKMapView *)aMapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    CLLocationCoordinate2D coordinate = [newLocation coordinate];
+    CLLocationCoordinate2D coordinate = [[userLocation location] coordinate];
     
     [defaults setFloat:coordinate.latitude  forKey:MBMostRecentLatitude];
     [defaults setFloat:coordinate.longitude forKey:MBMostRecentLongitude];
+    
+    if(trackingEnabled)
+        [[self mapView] setCenterCoordinate:coordinate animated:YES];
     
     [MBAPIAccess requestObjectWithURL:[MBAPIAccess requestURLWithLatitude:coordinate.latitude longitude:coordinate.longitude] completionBlock:
      ^(NSDictionary *object, NSError *error)
@@ -102,19 +116,24 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
              MBPolyline *addedOverlay = [MBPolyline polylineWithCoordinates:vertices count:count];
              
              [addedOverlay setAddress:address];
-             [mapView addOverlay:addedOverlay];
+             [aMapView addOverlay:addedOverlay];
              
              id<MKOverlay> cachedOverlay = [cachedOverlays objectForKey:[address identifier]];
              
              if(cachedOverlay != nil)
-                 [mapView removeOverlay:cachedOverlay];
+                 [aMapView removeOverlay:cachedOverlay];
              
              [cachedOverlays setObject:addedOverlay forKey:[address identifier]];
          }
      }];
 }
 
-#pragma mark - MKMapViewDelegate conformance
+- (void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location Error" message:@"Couldn't detect current location." delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
+    
+    [alertView show];
+}
 
 - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(MBPolyline *)overlay
 {
