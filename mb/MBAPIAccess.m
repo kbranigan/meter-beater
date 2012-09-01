@@ -8,6 +8,8 @@
 
 #import "MBAPIAccess.h"
 
+static NSString * const MBAPIAccessHost = @"http://branigan.ca";
+
 @interface MBAPIAccess () <NSURLConnectionDataDelegate>
 
 @end
@@ -33,9 +35,17 @@
     return connections;
 }
 
++ (void)cancelPendingRequests
+{
+    for(MBAPIAccess *connection in [self MB_connections])
+        [connection cancel];
+    
+    [[self MB_connections] removeAllObjects];
+}
+
 + (NSURL *)requestURLWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
 {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"http://192.168.1.110:3333/near?lat=%f&lng=%f", latitude, longitude]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/test3.json?lat=%f&lng=%f", MBAPIAccessHost, latitude, longitude]];
 }
 
 + (void)requestObjectWithURL:(NSURL *)url completionBlock:(void (^)(NSDictionary *, NSError *))blk
@@ -62,6 +72,11 @@
     }
     
     return self;
+}
+
+- (void)cancel
+{
+    [owner cancel];
 }
 
 #pragma mark - NSURLConnectionDataDelegate conformance
