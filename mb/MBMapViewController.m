@@ -116,6 +116,12 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
+    [defaults registerDefaults:
+     @{
+         MBMostRecentLatitude : @43.6481,
+        MBMostRecentLongitude : @(-79.4042)
+     }];
+    
     NSNumber *latitude  = [defaults objectForKey:MBMostRecentLatitude];
     NSNumber *longitude = [defaults objectForKey:MBMostRecentLongitude];
     
@@ -137,6 +143,9 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 
 - (void)mapView:(MKMapView *)aMapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
+    if([userLocation location] == nil)
+        return;
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     CLLocationCoordinate2D coordinate = [[userLocation location] coordinate];
@@ -150,6 +159,8 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
         
         [[self mapView] setCenterCoordinate:coordinate animated:YES];
     }
+    
+    coordinate = [[self mapView] centerCoordinate];
     
     [MBAPIAccess requestObjectWithURL:[MBAPIAccess requestURLWithLatitude:coordinate.latitude longitude:coordinate.longitude] completionBlock:
      ^(NSDictionary *object, NSError *error)
