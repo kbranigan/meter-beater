@@ -7,6 +7,7 @@
 //
 
 #import "MBAddress.h"
+#import "NSDictionary+MBAdditions.h"
 
 static NSString * const MBAddressIdentifierKey = @"id";
 static NSString * const MBAddressVerticesKey   = @"polyline";
@@ -25,9 +26,9 @@ static NSString * const MBAddressValuesKey     = @"tickets";
 {
     if((self = [super init]))
     {
-        [self setIdentifier:[dictionary objectForKey:MBAddressIdentifierKey]];
+        [self setIdentifier:[dictionary objectForKeyPath:MBAddressIdentifierKey]];
         
-        NSArray        *array        = [dictionary objectForKey:MBAddressVerticesKey];
+        NSArray        *array        = [dictionary objectForKeyPath:MBAddressVerticesKey];
         NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:[array count]];
         
         for(NSArray *pair in array)
@@ -35,7 +36,7 @@ static NSString * const MBAddressValuesKey     = @"tickets";
         
         [self setVertices:mutableArray];
         
-        [self setValues:[dictionary objectForKey:MBAddressValuesKey]];
+        [self setValues:[dictionary objectForKeyPath:MBAddressValuesKey]];
     }
     
     return self;

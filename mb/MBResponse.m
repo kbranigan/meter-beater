@@ -7,8 +7,9 @@
 //
 
 #import "MBResponse.h"
+#import "NSDictionary+MBAdditions.h"
 
-static NSString * const MBResponseRangesKey    = @"range_in_minutes";
+static NSString * const MBResponseRangesKey    = @"params.range_in_minutes";
 static NSString * const MBResponseAddressesKey = @"addresses";
 
 @implementation MBResponse
@@ -24,9 +25,9 @@ static NSString * const MBResponseAddressesKey = @"addresses";
 {
     if((self = [super init]))
     {
-        [self setRanges:[dictionary objectForKey:MBResponseRangesKey]];
+        [self setRanges:[dictionary objectForKeyPath:MBResponseRangesKey]];
         
-        NSArray        *array        = [dictionary objectForKey:MBResponseAddressesKey];
+        NSArray        *array        = [dictionary objectForKeyPath:MBResponseAddressesKey];
         NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:[array count]];
         
         for(NSDictionary *dictionary in array)

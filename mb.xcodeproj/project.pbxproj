@@ -20,6 +20,7 @@
 		0A4C4B6F157DABFE003919BB /* StreetSideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C4B6E157DABFE003919BB /* StreetSideView.m */; };
 		0A4C4B721583EC6D003919BB /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C4B711583EC6D003919BB /* GraphView.m */; };
 		0A8680211596667400E6A5CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A8680201596667400E6A5CF /* CoreLocation.framework */; };
+		3D22C26415F251E100451FA1 /* NSDictionary+MBAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D22C26315F251E100451FA1 /* NSDictionary+MBAdditions.m */; };
 		3D6377A315F03A120075003C /* MBAPIAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6377A215F03A120075003C /* MBAPIAccess.m */; };
 		3D6377A615F03E100075003C /* MBAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6377A515F03E100075003C /* MBAddress.m */; };
 		3D6377A915F040970075003C /* MBResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6377A815F040970075003C /* MBResponse.m */; };
@@ -51,6 +52,8 @@
 		0A4C4B701583EC6D003919BB /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
 		0A4C4B711583EC6D003919BB /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
 		0A8680201596667400E6A5CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		3D22C26215F251E100451FA1 /* NSDictionary+MBAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+MBAdditions.h"; sourceTree = "<group>"; };
+		3D22C26315F251E100451FA1 /* NSDictionary+MBAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+MBAdditions.m"; sourceTree = "<group>"; };
 		3D6377A115F03A120075003C /* MBAPIAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAPIAccess.h; sourceTree = "<group>"; };
 		3D6377A215F03A120075003C /* MBAPIAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAPIAccess.m; sourceTree = "<group>"; };
 		3D6377A415F03E100075003C /* MBAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAddress.h; sourceTree = "<group>"; };
@@ -122,6 +125,8 @@
 				3D6377A115F03A120075003C /* MBAPIAccess.h */,
 				3D6377A215F03A120075003C /* MBAPIAccess.m */,
 				3D99449115E91DD800CA5AB4 /* Model */,
+				3D22C26215F251E100451FA1 /* NSDictionary+MBAdditions.h */,
+				3D22C26315F251E100451FA1 /* NSDictionary+MBAdditions.m */,
 				0A4C4B62157DA51F003919BB /* ViewController.h */,
 				0A4C4B63157DA51F003919BB /* ViewController.m */,
 				0A4C4B54157DA51F003919BB /* Supporting Files */,
@@ -235,6 +240,7 @@
 				3D6377A315F03A120075003C /* MBAPIAccess.m in Sources */,
 				3D6377A615F03E100075003C /* MBAddress.m in Sources */,
 				3D6377A915F040970075003C /* MBResponse.m in Sources */,
+				3D22C26415F251E100451FA1 /* NSDictionary+MBAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

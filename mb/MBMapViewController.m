@@ -21,8 +21,9 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 
 @interface MBMapViewController () <MKMapViewDelegate>
 
-@property(nonatomic, weak) IBOutlet MKMapView *mapView;
-@property(nonatomic, weak) IBOutlet UIToolbar *toolbar;
+@property(nonatomic, weak) IBOutlet MKMapView          *mapView;
+@property(nonatomic, weak) IBOutlet UISegmentedControl *segmentedControl;
+@property(nonatomic, copy) NSArray                     *timeRanges;
 
 - (IBAction)MB_didTapTrackButton:(UIBarButtonItem *)sender;
 
@@ -44,23 +45,67 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     NSMutableDictionary *cachedOverlays;
 }
 
-@synthesize mapView, toolbar;
+@synthesize mapView, segmentedControl, timeRanges;
 
 - (UIColor *)MB_colourForValue:(CGFloat)value
 {
     return [UIColor colorWithHue:value / 3.0 saturation:1.0 brightness:1.0 alpha:0.5];
 }
 
-- (void)MB_didTapTrackButton:(UIBarButtonItem *)sender
+- (IBAction)MB_didTapTrackButton:(UIBarButtonItem *)sender
 {
     trackingEnabled = YES;
     
     [[self mapView] setCenterCoordinate:[[[[self mapView] userLocation] location] coordinate] animated:YES];
 }
 
+- (IBAction)MB_didTapSegmentedControl:(UISegmentedControl *)sender
+{
+    [self MB_reloadMapView];
+}
+
+- (void)MB_reloadMapView
+{
+    NSArray *overlays = [cachedOverlays allValues];
+    
+    [[self mapView] removeOverlays:overlays];
+    [[self mapView] addOverlays:overlays];
+}
+
+- (void)setTimeRanges:(NSArray *)ranges
+{
+    if(![ranges isEqualToArray:timeRanges])
+    {
+        NSInteger  selectedIndex = [[self segmentedControl] selectedSegmentIndex];
+        NSNumber  *selectedRange = selectedIndex >= 0 && selectedIndex < [timeRanges count] ? [timeRanges objectAtIndex:selectedIndex] : nil;
+        
+        timeRanges = [ranges copy];
+        
+        [[self segmentedControl] removeAllSegments];
+        
+        for(NSNumber *range in timeRanges)
+            [[self segmentedControl] insertSegmentWithTitle:[range description] atIndex:NSIntegerMax animated:NO];
+        
+        NSInteger index = [timeRanges indexOfObject:selectedRange];
+        
+        if(index == NSNotFound)
+            index = selectedIndex;
+        if(index >= [[self segmentedControl] numberOfSegments])
+            index = [[self segmentedControl] numberOfSegments] - 1;
+        if(index < 0)
+            index = 0;
+        
+        [[self segmentedControl] setSelectedSegmentIndex:index];
+        
+        [self MB_reloadMapView];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self setTimeRanges:@[ @60, @180, @360 ]];
     
     cachedOverlays = [NSMutableDictionary dictionary];
     
@@ -106,6 +151,8 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
      {
          MBResponse *response = [MBResponse responseWithDictionary:object];
          
+         [self setTimeRanges:[response ranges]];
+         
          for(MBAddress *address in [response addresses])
          {
              NSUInteger count = [[address vertices] count];
@@ -146,7 +193,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     MKPolylineView *view = [[MKPolylineView alloc] initWithOverlay:overlay];
     
     [view setLineWidth:3.0];
-    [view setStrokeColor:[self MB_colourForValue:[[[[overlay address] values] objectAtIndex:0] floatValue]]];
+    [view setStrokeColor:[self MB_colourForValue:[[[[overlay address] values] objectAtIndex:[[self segmentedControl] selectedSegmentIndex]] floatValue]]];
     
     return view;
 }
