@@ -42,6 +42,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 @implementation MBMapViewController
 {
     BOOL                 ignoreRegionChanges;
+    NSMutableDictionary *cachedAddresses;
     NSMutableDictionary *cachedOverlays;
 }
 
@@ -115,7 +116,8 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     
     [self setTimeRanges:[NSArray arrayWithObjects:@"1 hr", @"3 hr", @"6 hr", nil]];
     
-    cachedOverlays = [NSMutableDictionary dictionary];
+    cachedAddresses = [NSMutableDictionary dictionary];
+    cachedOverlays  = [NSMutableDictionary dictionary];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
@@ -159,28 +161,35 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
          
          for(MBAddress *address in [response addresses])
          {
-             NSUInteger count = [[address vertices] count];
+             MBAddress *cachedAddress = [cachedAddresses objectForKey:[address identifier]];
              
-             CLLocationCoordinate2D *vertices = malloc(count * sizeof(CLLocationCoordinate2D));
-             
-             for(NSUInteger index = 0; index < count; index++)
+             if(![[address values] isEqualToArray:[cachedAddress values]])
              {
-                 CGPoint point = [[[address vertices] objectAtIndex:index] CGPointValue];
+                 NSUInteger count = [[address vertices] count];
                  
-                 vertices[index] = CLLocationCoordinate2DMake(point.x, point.y);
+                 CLLocationCoordinate2D *vertices = malloc(count * sizeof(CLLocationCoordinate2D));
+                 
+                 for(NSUInteger index = 0; index < count; index++)
+                 {
+                     CGPoint point = [[[address vertices] objectAtIndex:index] CGPointValue];
+                     
+                     vertices[index] = CLLocationCoordinate2DMake(point.x, point.y);
+                 }
+                 
+                 MBPolyline *addedOverlay = [MBPolyline polylineWithCoordinates:vertices count:count];
+                 
+                 [addedOverlay setAddress:address];
+                 [aMapView addOverlay:addedOverlay];
+                 
+                 id<MKOverlay> cachedOverlay = [cachedOverlays objectForKey:[address identifier]];
+                 
+                 if(cachedOverlay != nil)
+                     [aMapView removeOverlay:cachedOverlay];
+                 
+                 [cachedOverlays setObject:addedOverlay forKey:[address identifier]];
              }
              
-             MBPolyline *addedOverlay = [MBPolyline polylineWithCoordinates:vertices count:count];
-             
-             [addedOverlay setAddress:address];
-             [aMapView addOverlay:addedOverlay];
-             
-             id<MKOverlay> cachedOverlay = [cachedOverlays objectForKey:[address identifier]];
-             
-             if(cachedOverlay != nil)
-                 [aMapView removeOverlay:cachedOverlay];
-             
-             [cachedOverlays setObject:addedOverlay forKey:[address identifier]];
+             [cachedAddresses setObject:address forKey:[address identifier]];
          }
      }];
 }
