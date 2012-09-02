@@ -86,7 +86,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
         
         [[self segmentedControl] removeAllSegments];
         
-        for(NSNumber *range in timeRanges)
+        for(id range in timeRanges)
             [[self segmentedControl] insertSegmentWithTitle:[range description] atIndex:NSIntegerMax animated:NO];
         
         NSInteger index = [timeRanges indexOfObject:selectedRange];
