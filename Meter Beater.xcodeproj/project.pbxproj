@@ -88,7 +88,7 @@
 			children = (
 				3D72599515DE51B8005E4539 /* MapKit.framework */,
 				0A8680201596667400E6A5CF /* CoreLocation.framework */,
-				0A4C4B53157DA51F003919BB /* mb */,
+				0A4C4B53157DA51F003919BB /* Meter Beater */,
 				0A4C4B4C157DA51F003919BB /* Frameworks */,
 				0A4C4B4A157DA51F003919BB /* Products */,
 			);
@@ -112,7 +112,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		0A4C4B53157DA51F003919BB /* mb */ = {
+		0A4C4B53157DA51F003919BB /* Meter Beater */ = {
 			isa = PBXGroup;
 			children = (
 				0A4C4B6A157DA6E4003919BB /* MeterBeater.h */,
@@ -137,7 +137,7 @@
 				0A3432021589715100DBDD5E /* StreetSideAttributeCell.h */,
 				0A3432031589715100DBDD5E /* StreetSideAttributeCell.m */,
 			);
-			path = mb;
+			path = "Meter Beater";
 			sourceTree = "<group>";
 		};
 		0A4C4B54157DA51F003919BB /* Supporting Files */ = {
@@ -315,8 +315,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "mb/Meter Beater-Prefix.pch";
-				INFOPLIST_FILE = "mb/Meter Beater-Info.plist";
+				GCC_PREFIX_HEADER = "Meter Beater/Meter Beater-Prefix.pch";
+				INFOPLIST_FILE = "Meter Beater/Meter Beater-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "Meter Beater";
 				WRAPPER_EXTENSION = app;
@@ -327,8 +327,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "mb/Meter Beater-Prefix.pch";
-				INFOPLIST_FILE = "mb/Meter Beater-Info.plist";
+				GCC_PREFIX_HEADER = "Meter Beater/Meter Beater-Prefix.pch";
+				INFOPLIST_FILE = "Meter Beater/Meter Beater-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "Meter Beater";
 				WRAPPER_EXTENSION = app;
