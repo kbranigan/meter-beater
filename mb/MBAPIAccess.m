@@ -8,8 +8,6 @@
 
 #import "MBAPIAccess.h"
 
-static NSString * const MBAPIAccessHost = @"http://branigan.ca";
-
 @interface MBAPIAccess () <NSURLConnectionDataDelegate>
 
 @end
@@ -20,6 +18,32 @@ static NSString * const MBAPIAccessHost = @"http://branigan.ca";
     NSMutableData   *buffer;
     
     void (^block)(NSDictionary *, NSError *);
+}
+
++ (NSString *)MB_host
+{
+    static NSString *host = nil;
+    
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        host = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"MBAPIAccessHost"];
+    });
+    
+    return host;
+}
+
++ (NSString *)MB_version
+{
+    static NSString *version = nil;
+    
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"MBAPIAccessVersion"];
+    });
+    
+    return version;
 }
 
 + (NSMutableSet *)MB_connections
@@ -45,7 +69,7 @@ static NSString * const MBAPIAccessHost = @"http://branigan.ca";
 
 + (NSURL *)requestURLWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
 {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/test3.json?lat=%f&lng=%f", MBAPIAccessHost, latitude, longitude]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/test3.json?v=%@&lat=%f&lng=%f", [[self class] MB_host], [[self class] MB_version], latitude, longitude]];
 }
 
 + (void)requestObjectWithURL:(NSURL *)url completionBlock:(void (^)(NSDictionary *, NSError *))blk
