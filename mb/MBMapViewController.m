@@ -113,17 +113,22 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 {
     [super viewDidLoad];
     
-    [self setTimeRanges:@[ @60, @180, @360 ]];
+    [self setTimeRanges:
+     [NSArray arrayWithObjects:
+      [NSNumber numberWithInteger: 60],
+      [NSNumber numberWithInteger:180],
+      [NSNumber numberWithInteger:360],
+      nil]];
     
     cachedOverlays = [NSMutableDictionary dictionary];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults registerDefaults:
-     @{
-         MBMostRecentLatitude : @43.6481,
-        MBMostRecentLongitude : @(-79.4042)
-     }];
+     [NSDictionary dictionaryWithObjectsAndKeys:
+      [NSNumber numberWithFloat: 43.6481], MBMostRecentLatitude,
+      [NSNumber numberWithFloat:-79.4042], MBMostRecentLongitude,
+      nil]];
     
     NSNumber *latitude  = [defaults objectForKey:MBMostRecentLatitude];
     NSNumber *longitude = [defaults objectForKey:MBMostRecentLongitude];
