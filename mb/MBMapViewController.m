@@ -22,6 +22,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 @interface MBMapViewController () <MKMapViewDelegate>
 
 @property(nonatomic, weak) IBOutlet MKMapView          *mapView;
+@property(nonatomic, weak) IBOutlet UIBarButtonItem    *trackButton;
 @property(nonatomic, weak) IBOutlet UISegmentedControl *segmentedControl;
 @property(nonatomic, copy) NSArray                     *timeRanges;
 
@@ -41,11 +42,10 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 @implementation MBMapViewController
 {
     BOOL                 ignoreRegionChanges;
-    BOOL                 trackingEnabled;
     NSMutableDictionary *cachedOverlays;
 }
 
-@synthesize mapView, segmentedControl, timeRanges;
+@synthesize mapView, trackButton, segmentedControl, timeRanges;
 
 - (UIColor *)MB_colourForValue:(CGFloat)value
 {
@@ -54,9 +54,12 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 
 - (IBAction)MB_didTapTrackButton:(UIBarButtonItem *)sender
 {
-    trackingEnabled = YES;
+    [[self trackButton] setStyle:UIBarButtonItemStyleDone];
     
-    [[self mapView] setCenterCoordinate:[[[[self mapView] userLocation] location] coordinate] animated:YES];
+    CLLocation *location = [[[self mapView] userLocation] location];
+    
+    if(location != nil)
+        [[self mapView] setCenterCoordinate:[location coordinate] animated:YES];
 }
 
 - (IBAction)MB_didTapSegmentedControl:(UISegmentedControl *)sender
@@ -129,17 +132,22 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
         [[self mapView] setRegion:MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake([latitude floatValue], [longitude floatValue]), MBMapSpan, MBMapSpan) animated:YES];
     
     ignoreRegionChanges = YES;
-    trackingEnabled     = YES;
+    
+    [[self trackButton] setStyle:UIBarButtonItemStyleDone];
     
     [[self mapView] setShowsUserLocation:YES];
 }
 
 #pragma mark - MKMapViewDelegate conformance
 
+- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
+{
+    if(!ignoreRegionChanges && !animated)
+        [[self trackButton] setStyle:UIBarButtonItemStyleBordered];
+}
+
 - (void)mapView:(MKMapView *)aMapView regionDidChangeAnimated:(BOOL)animated
 {
-    trackingEnabled = trackingEnabled && (ignoreRegionChanges || animated);
-    
     CLLocationCoordinate2D coordinate = [[self mapView] centerCoordinate];
     
     [MBAPIAccess requestObjectWithURL:[MBAPIAccess requestURLWithLatitude:coordinate.latitude longitude:coordinate.longitude] completionBlock:
@@ -189,7 +197,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     [defaults setFloat:coordinate.latitude  forKey:MBMostRecentLatitude];
     [defaults setFloat:coordinate.longitude forKey:MBMostRecentLongitude];
     
-    if(trackingEnabled)
+    if([[self trackButton] style] == UIBarButtonItemStyleDone)
     {
         ignoreRegionChanges = NO;
         
@@ -199,6 +207,8 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 
 - (void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error
 {
+    ignoreRegionChanges = NO;
+    
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location Error" message:@"Couldn't detect current location." delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
     
     [alertView show];

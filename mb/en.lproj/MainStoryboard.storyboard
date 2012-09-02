@@ -100,7 +100,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Meter Beater" id="Baa-dc-kpb">
-                        <barButtonItem key="rightBarButtonItem" title="Track" id="H1M-9j-DMh">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="H1M-9j-DMh">
                             <connections>
                                 <action selector="MB_didTapTrackButton:" destination="mYq-Cm-y4T" id="Sjf-bx-AmY"/>
                             </connections>
@@ -109,6 +109,7 @@
                     <connections>
                         <outlet property="mapView" destination="WVU-XJ-bgP" id="2Re-JQ-j3f"/>
                         <outlet property="segmentedControl" destination="Wto-Vu-ET9" id="JlW-DK-lIS"/>
+                        <outlet property="trackButton" destination="H1M-9j-DMh" id="Uho-3q-hR3"/>
                     </connections>
                 </viewController>
             </objects>
@@ -119,9 +120,11 @@
         <class className="MBMapViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MBMapViewController.h"/>
             <relationships>
+                <relationship kind="action" name="MB_didTapSegmentedControl:" candidateClass="UISegmentedControl"/>
                 <relationship kind="action" name="MB_didTapTrackButton:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
                 <relationship kind="outlet" name="segmentedControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="trackButton" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
         <class className="ViewController" superclassName="UIViewController">
