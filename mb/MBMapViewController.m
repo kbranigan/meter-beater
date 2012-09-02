@@ -49,7 +49,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 
 - (UIColor *)MB_colourForValue:(CGFloat)value
 {
-    return [UIColor colorWithHue:value / 3.0 saturation:1.0 brightness:1.0 alpha:0.5];
+    return [UIColor colorWithHue:value / 3.0 saturation:1.0 brightness:1.0 alpha:1.0];
 }
 
 - (IBAction)MB_didTapTrackButton:(UIBarButtonItem *)sender
