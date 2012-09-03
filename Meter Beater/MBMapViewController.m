@@ -153,7 +153,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 
 - (void)mapView:(MKMapView *)aMapView regionDidChangeAnimated:(BOOL)animated
 {
-    if((lastRequest != nil && -[lastRequest timeIntervalSinceNow] < MBTimeBetweenRequests) || [[aMapView userLocation] location] == nil) return;
+    if((animated && lastRequest != nil && -[lastRequest timeIntervalSinceNow] < MBTimeBetweenRequests) || [[aMapView userLocation] location] == nil) return;
     
     lastRequest = [NSDate date];
     
@@ -168,7 +168,9 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
          
          NSMutableArray *removedIdentifiers = [NSMutableArray arrayWithCapacity:[cachedAddresses count]];
          
-         MKMapRect visibleRegion = [aMapView visibleMapRect];
+         MKMapPoint centerPoint = MKMapPointForCoordinate([aMapView centerCoordinate]);
+         
+         MKMapRect visibleRegion = MKMapRectMake(centerPoint.x - MBMapSpan, centerPoint.y - MBMapSpan, 2.0 * MBMapSpan, 2.0 * MBMapSpan);
          
          for(NSString *identifier in cachedOverlays)
          {
