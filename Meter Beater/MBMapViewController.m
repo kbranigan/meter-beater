@@ -63,7 +63,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     CLLocation *location = [[[self mapView] userLocation] location];
     
     if(location != nil)
-        [[self mapView] setCenterCoordinate:[location coordinate] animated:YES];
+        [[self mapView] setRegion:MKCoordinateRegionMakeWithDistance([location coordinate], MBMapSpan, MBMapSpan) animated:YES];
 }
 
 - (IBAction)MB_didTapSegmentedControl:(UISegmentedControl *)sender
@@ -166,6 +166,11 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
          
          [self setTimeRanges:[response ranges]];
          
+         NSMutableArray *removedIdentifiers = [NSMutableArray arrayWithCapacity:[cachedAddresses count]];
+         
+         [cachedAddresses removeObjectsForKeys:removedIdentifiers];
+         [cachedOverlays  removeObjectsForKeys:removedIdentifiers];
+         
          for(MBAddress *address in [response addresses])
          {
              MBAddress *cachedAddress = [cachedAddresses objectForKey:[address identifier]];
@@ -217,7 +222,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     {
         ignoreRegionChanges = NO;
         
-        [aMapView setCenterCoordinate:coordinate animated:YES];
+        [aMapView setRegion:MKCoordinateRegionMakeWithDistance(coordinate, MBMapSpan, MBMapSpan) animated:YES];
     }
 }
 
