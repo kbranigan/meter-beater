@@ -153,12 +153,11 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 
 - (void)mapView:(MKMapView *)aMapView regionDidChangeAnimated:(BOOL)animated
 {
-    if(lastRequest != nil && -[lastRequest timeIntervalSinceNow] < MBTimeBetweenRequests)
-        return;
+    if((lastRequest != nil && -[lastRequest timeIntervalSinceNow] < MBTimeBetweenRequests) || [[aMapView userLocation] location] == nil) return;
     
     lastRequest = [NSDate date];
     
-    CLLocationCoordinate2D coordinate = [[self mapView] centerCoordinate];
+    CLLocationCoordinate2D coordinate = [aMapView centerCoordinate];
     
     [MBAPIAccess requestObjectWithURL:[MBAPIAccess requestURLWithLatitude:coordinate.latitude longitude:coordinate.longitude] completionBlock:
      ^(NSDictionary *object, NSError *error)
@@ -202,7 +201,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
      }];
 }
 
-- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+- (void)mapView:(MKMapView *)aMapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
     if([userLocation location] == nil)
         return;
@@ -218,7 +217,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     {
         ignoreRegionChanges = NO;
         
-        [[self mapView] setCenterCoordinate:coordinate animated:YES];
+        [aMapView setCenterCoordinate:coordinate animated:YES];
     }
 }
 
