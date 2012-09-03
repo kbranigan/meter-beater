@@ -8,6 +8,9 @@
 
 #import "MBAPIAccess.h"
 
+static NSString * const MBAPIAccessMapEndpoint   = @"near";
+static NSString * const MBAPIAccessIdentifierKey = @"MBAPIAccessIdentifierKey";
+
 @interface MBAPIAccess () <NSURLConnectionDataDelegate>
 
 @end
@@ -18,6 +21,34 @@
     NSMutableData   *buffer;
     
     void (^block)(NSDictionary *, NSError *);
+}
+
++ (NSString *)MB_identifier
+{
+    static NSString *identifier = nil;
+    
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        
+        identifier = [defaults objectForKey:MBAPIAccessIdentifierKey];
+        
+        if(identifier == nil)
+        {
+            CFUUIDRef   token  = CFUUIDCreate(NULL);
+            CFStringRef string = CFUUIDCreateString(NULL, token);
+            
+            identifier = [(__bridge NSString *)string copy];
+            
+            CFRelease(string);
+            CFRelease(token);
+            
+            [defaults setObject:identifier forKey:MBAPIAccessIdentifierKey];
+        }
+    });
+    
+    return identifier;
 }
 
 + (NSString *)MB_host
@@ -69,7 +100,7 @@
 
 + (NSURL *)requestURLWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
 {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/test3.json?v=%@&lat=%f&lng=%f", [[self class] MB_host], [[self class] MB_version], latitude, longitude]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@?v=%@&lat=%f&lng=%f", [[self class] MB_host], MBAPIAccessMapEndpoint, [[self class] MB_version], latitude, longitude]];
 }
 
 + (void)requestObjectWithURL:(NSURL *)url completionBlock:(void (^)(NSDictionary *, NSError *))blk
@@ -90,7 +121,11 @@
         
         buffer = [NSMutableData data];
         
-        owner = [NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:url] delegate:self];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+        
+        [request addValue:[[self class] MB_identifier] forHTTPHeaderField:@"X-Device-Identifier"];
+        
+        owner = [NSURLConnection connectionWithRequest:request delegate:self];
         
         block = blk;
     }

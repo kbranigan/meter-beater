@@ -25,7 +25,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MBAPIAccessHost</key>
-	<string>http://branigan.ca</string>
+	<string>http://meterbeater.branigan.ca:4512</string>
 	<key>MBAPIAccessVersion</key>
 	<string>1.0</string>
 	<key>UIMainStoryboardFile</key>
