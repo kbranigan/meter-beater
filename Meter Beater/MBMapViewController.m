@@ -14,8 +14,9 @@
 #import "MBAPIAccess.h"
 #import "MBResponse.h"
 
-static const CGFloat MBMapSpan   = 250.0;
-static const CGFloat MBLineWidth =   3.0;
+static const CGFloat        MBMapSpan             = 250.0;
+static const CGFloat        MBLineWidth           =   3.0;
+static const NSTimeInterval MBTimeBetweenRequests =   5.0;
 
 static NSString * const MBMostRecentLatitude  = @"MBMostRecentLatitude";
 static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
@@ -45,6 +46,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     BOOL                 ignoreRegionChanges;
     NSMutableDictionary *cachedAddresses;
     NSMutableDictionary *cachedOverlays;
+    NSDate              *lastRequest;
 }
 
 @synthesize mapView, trackButton, segmentedControl, timeRanges;
@@ -151,6 +153,11 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 
 - (void)mapView:(MKMapView *)aMapView regionDidChangeAnimated:(BOOL)animated
 {
+    if(lastRequest != nil && -[lastRequest timeIntervalSinceNow] < MBTimeBetweenRequests)
+        return;
+    
+    lastRequest = [NSDate date];
+    
     CLLocationCoordinate2D coordinate = [[self mapView] centerCoordinate];
     
     [MBAPIAccess requestObjectWithURL:[MBAPIAccess requestURLWithLatitude:coordinate.latitude longitude:coordinate.longitude] completionBlock:
