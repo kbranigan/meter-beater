@@ -15,7 +15,8 @@
 #import "MBResponse.h"
 
 static const CGFloat        MBMapSpan             = 250.0;
-static const CGFloat        MBLineWidth           =   3.0;
+static const CGFloat        MBRegionLineWidth     =   3.0;
+static const CGFloat        MBAddressLineWidth    =   1.0;
 static const NSTimeInterval MBTimeBetweenRequests =   5.0;
 
 static NSString * const MBMostRecentLatitude  = @"MBMostRecentLatitude";
@@ -47,10 +48,22 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     BOOL                 ignoreRegionChanges;
     NSMutableDictionary *cachedAddresses;
     NSMutableDictionary *cachedOverlays;
+    MKPolygon           *regionOverlay;
     NSDate              *lastRequest;
+    CGSize               mapSpan;
 }
 
 @synthesize mapView, trackButton, segmentedControl, timeRanges;
+
+- (UIColor *)MB_regionStrokeColour
+{
+    return [UIColor colorWithRed:0.0 green:0.5 blue:1.0 alpha:0.20];
+}
+
+- (UIColor *)MB_regionFillColour
+{
+    return [UIColor colorWithRed:0.0 green:0.5 blue:1.0 alpha:0.05];
+}
 
 - (UIColor *)MB_colourForValue:(CGFloat)value
 {
@@ -67,7 +80,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     {
         forceRequest = YES;
         
-        [[self mapView] setRegion:MKCoordinateRegionMakeWithDistance([location coordinate], MBMapSpan, MBMapSpan) animated:YES];
+        [[self mapView] setRegion:MKCoordinateRegionMakeWithDistance([location coordinate], mapSpan.width, mapSpan.height) animated:YES];
     }
 }
 
@@ -81,7 +94,14 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     NSArray *overlays = [cachedOverlays allValues];
     
     [[self mapView] removeOverlays:overlays];
+    
+    if(regionOverlay != nil)
+        [[self mapView] removeOverlay:regionOverlay];
+    
     [[self mapView] addOverlays:overlays];
+    
+    if(regionOverlay != nil)
+        [[self mapView] addOverlay:regionOverlay];
 }
 
 - (void)setTimeRanges:(NSArray *)ranges
@@ -138,8 +158,10 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     NSNumber *latitude  = [defaults objectForKey:MBMostRecentLatitude];
     NSNumber *longitude = [defaults objectForKey:MBMostRecentLongitude];
     
+    mapSpan = CGSizeMake(MBMapSpan, MBMapSpan);
+    
     if(latitude != nil && longitude != nil)
-        [[self mapView] setRegion:MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake([latitude floatValue], [longitude floatValue]), MBMapSpan, MBMapSpan) animated:YES];
+        [[self mapView] setRegion:MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake([latitude floatValue], [longitude floatValue]), mapSpan.width, mapSpan.height) animated:YES];
     
     ignoreRegionChanges = YES;
     
@@ -178,10 +200,18 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
          
          CGRect region = [response region];
          
-         MKMapPoint minPoint = MKMapPointForCoordinate(CLLocationCoordinate2DMake(CGRectGetMinX(region), CGRectGetMinY(region)));
-         MKMapPoint maxPoint = MKMapPointForCoordinate(CLLocationCoordinate2DMake(CGRectGetMaxX(region), CGRectGetMaxY(region)));
+         MKMapPoint corners[4] =
+         {
+             MKMapPointForCoordinate(CLLocationCoordinate2DMake(CGRectGetMinX(region), CGRectGetMinY(region))),
+             MKMapPointForCoordinate(CLLocationCoordinate2DMake(CGRectGetMaxX(region), CGRectGetMinY(region))),
+             MKMapPointForCoordinate(CLLocationCoordinate2DMake(CGRectGetMaxX(region), CGRectGetMaxY(region))),
+             MKMapPointForCoordinate(CLLocationCoordinate2DMake(CGRectGetMinX(region), CGRectGetMaxY(region)))
+         };
          
-         MKMapRect mapRegion = { minPoint, MKMapSizeMake(maxPoint.x - minPoint.x, maxPoint.y - minPoint.y) };
+         mapSpan.width  = MKMetersBetweenMapPoints(corners[0], corners[1]) / 2.0;
+         mapSpan.height = MKMetersBetweenMapPoints(corners[1], corners[2]) / 2.0;
+         
+         MKMapRect mapRegion = { corners[0], MKMapSizeMake(corners[2].x - corners[0].x, corners[2].y - corners[0].y) };
          
          for(NSString *identifier in cachedOverlays)
          {
@@ -228,6 +258,13 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
              
              [cachedAddresses setObject:address forKey:[address identifier]];
          }
+         
+         if(regionOverlay != nil)
+             [aMapView removeOverlay:regionOverlay];
+         
+         regionOverlay = [MKPolygon polygonWithPoints:corners count:sizeof(corners) / sizeof(corners[0])];
+         
+         [aMapView addOverlay:regionOverlay];
      }];
 }
 
@@ -247,7 +284,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     {
         ignoreRegionChanges = NO;
         
-        [aMapView setRegion:MKCoordinateRegionMakeWithDistance(coordinate, MBMapSpan, MBMapSpan) animated:YES];
+        [aMapView setRegion:MKCoordinateRegionMakeWithDistance(coordinate, mapSpan.width, mapSpan.height) animated:YES];
     }
 }
 
@@ -262,12 +299,25 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 
 - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(MBPolyline *)overlay
 {
-    MKPolylineView *view = [[MKPolylineView alloc] initWithOverlay:overlay];
-    
-    [view setLineWidth:[[UIScreen mainScreen] scale] * MBLineWidth];
-    [view setStrokeColor:[self MB_colourForValue:[[[[overlay address] values] objectAtIndex:[[self segmentedControl] selectedSegmentIndex]] floatValue]]];
-    
-    return view;
+    if([overlay isKindOfClass:[MKPolygon class]])
+    {
+        MKPolygonView *view = [[MKPolygonView alloc] initWithOverlay:overlay];
+        
+        [view setLineWidth:[[UIScreen mainScreen] scale] * MBRegionLineWidth];
+        [view setStrokeColor:[self MB_regionStrokeColour]];
+        [view setFillColor:[self MB_regionFillColour]];
+        
+        return view;
+    }
+    else
+    {
+        MKPolylineView *view = [[MKPolylineView alloc] initWithOverlay:overlay];
+        
+        [view setLineWidth:[[UIScreen mainScreen] scale] * MBAddressLineWidth];
+        [view setStrokeColor:[self MB_colourForValue:[[[[overlay address] values] objectAtIndex:[[self segmentedControl] selectedSegmentIndex]] floatValue]]];
+        
+        return view;
+    }
 }
 
 @end
