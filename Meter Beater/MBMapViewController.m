@@ -14,7 +14,8 @@
 #import "MBAPIAccess.h"
 #import "MBResponse.h"
 
-static const CGFloat MBMapSpan = 250.0;
+static const CGFloat MBMapSpan   = 250.0;
+static const CGFloat MBLineWidth =   3.0;
 
 static NSString * const MBMostRecentLatitude  = @"MBMostRecentLatitude";
 static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
@@ -227,7 +228,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 {
     MKPolylineView *view = [[MKPolylineView alloc] initWithOverlay:overlay];
     
-    [view setLineWidth:3.0];
+    [view setLineWidth:[[UIScreen mainScreen] scale] * MBLineWidth];
     [view setStrokeColor:[self MB_colourForValue:[[[[overlay address] values] objectAtIndex:[[self segmentedControl] selectedSegmentIndex]] floatValue]]];
     
     return view;
