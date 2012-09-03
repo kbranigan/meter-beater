@@ -14,6 +14,7 @@
 
 @property(nonatomic, copy) NSArray *ranges;
 @property(nonatomic, copy) NSArray *addresses;
+@property(nonatomic)       CGRect   region;
 
 + (id)responseWithDictionary:(NSDictionary *)dictionary;
 

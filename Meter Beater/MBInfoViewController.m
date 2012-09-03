@@ -23,10 +23,13 @@
     [super viewDidLoad];
     
     NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
+    NSString     *url  = [NSString stringWithFormat:@"%@%@", [info objectForKey:@"MBAPIAccessHost"], [info objectForKey:@"MBAPIAccessInfoEndpoint"]];
     
-    NSLog(@"%@", [NSString stringWithFormat:@"%@%@", [info objectForKey:@"MBAPIAccessHost"], [info objectForKey:@"MBAPIAccessInfoEndpoint"]]);
+#if DEBUG
+    NSLog(@"%@", url);
+#endif
     
-    [[self webView] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [info objectForKey:@"MBAPIAccessHost"], [info objectForKey:@"MBAPIAccessInfoEndpoint"]]]]];
+    [[self webView] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
 }
 
 @end

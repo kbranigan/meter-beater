@@ -120,6 +120,10 @@ static NSString * const MBAPIAccessIdentifierKey = @"MBAPIAccessIdentifierKey";
         
         buffer = [NSMutableData data];
         
+#if DEBUG
+        NSLog(@"%@", url);
+#endif
+        
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
         
         [request addValue:[[self class] MB_identifier] forHTTPHeaderField:@"X-Device-Identifier"];

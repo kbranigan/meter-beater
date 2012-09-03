@@ -122,7 +122,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 {
     [super viewDidLoad];
     
-    [self setTimeRanges:[NSArray arrayWithObjects:@"1 hr", @"3 hr", @"6 hr", nil]];
+    [self setTimeRanges:[NSArray arrayWithObjects:@"1 hour", @"3 hours", @"6 hours", nil]];
     
     cachedAddresses = [NSMutableDictionary dictionary];
     cachedOverlays  = [NSMutableDictionary dictionary];
@@ -165,6 +165,8 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     
     CLLocationCoordinate2D coordinate = [aMapView centerCoordinate];
     
+    [MBAPIAccess cancelPendingRequests];
+    
     [MBAPIAccess requestObjectWithURL:[MBAPIAccess requestURLWithLatitude:coordinate.latitude longitude:coordinate.longitude] completionBlock:
      ^(NSDictionary *object, NSError *error)
      {
@@ -174,15 +176,18 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
          
          NSMutableArray *removedIdentifiers = [NSMutableArray arrayWithCapacity:[cachedAddresses count]];
          
-         MKMapPoint centerPoint = MKMapPointForCoordinate([aMapView centerCoordinate]);
+         CGRect region = [response region];
          
-         MKMapRect visibleRegion = MKMapRectMake(centerPoint.x - MBMapSpan, centerPoint.y - MBMapSpan, 2.0 * MBMapSpan, 2.0 * MBMapSpan);
+         MKMapPoint minPoint = MKMapPointForCoordinate(CLLocationCoordinate2DMake(CGRectGetMinX(region), CGRectGetMinY(region)));
+         MKMapPoint maxPoint = MKMapPointForCoordinate(CLLocationCoordinate2DMake(CGRectGetMaxX(region), CGRectGetMaxY(region)));
+         
+         MKMapRect mapRegion = { minPoint, MKMapSizeMake(maxPoint.x - minPoint.x, maxPoint.y - minPoint.y) };
          
          for(NSString *identifier in cachedOverlays)
          {
              id<MKOverlay> cachedOverlay = [cachedOverlays objectForKey:identifier];
              
-             if(![cachedOverlay intersectsMapRect:visibleRegion])
+             if(![cachedOverlay intersectsMapRect:mapRegion])
                  [removedIdentifiers addObject:identifier];
          }
          
