@@ -168,6 +168,18 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
          
          NSMutableArray *removedIdentifiers = [NSMutableArray arrayWithCapacity:[cachedAddresses count]];
          
+         MKMapRect visibleRegion = [aMapView visibleMapRect];
+         
+         for(NSString *identifier in cachedOverlays)
+         {
+             id<MKOverlay> cachedOverlay = [cachedOverlays objectForKey:identifier];
+             
+             if(![cachedOverlay intersectsMapRect:visibleRegion])
+                 [removedIdentifiers addObject:identifier];
+         }
+         
+         [aMapView removeOverlays:[cachedOverlays objectsForKeys:removedIdentifiers notFoundMarker:[NSNull null]]];
+         
          [cachedAddresses removeObjectsForKeys:removedIdentifiers];
          [cachedOverlays  removeObjectsForKeys:removedIdentifiers];
          
