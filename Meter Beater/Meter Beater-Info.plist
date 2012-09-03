@@ -26,6 +26,10 @@
 	<true/>
 	<key>MBAPIAccessHost</key>
 	<string>http://meterbeater.branigan.ca:4512</string>
+	<key>MBAPIAccessMapEndpoint</key>
+	<string>/near</string>
+	<key>MBAPIAccessInfoEndpoint</key>
+	<string>/info.html</string>
 	<key>MBAPIAccessVersion</key>
 	<string>1.0</string>
 	<key>UIMainStoryboardFile</key>

@@ -22,6 +22,7 @@
 		3D72599415DE5052005E4539 /* MBMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D72599315DE5052005E4539 /* MBMapViewController.m */; };
 		3D72599615DE51B8005E4539 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D72599515DE51B8005E4539 /* MapKit.framework */; };
 		3D72599815DE57CE005E4539 /* william.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3D72599715DE57CE005E4539 /* william.gpx */; };
+		3DF7DAE915F47CE8003C62CD /* MBInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF7DAE815F47CE8003C62CD /* MBInfoViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,8 @@
 		3D72599315DE5052005E4539 /* MBMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMapViewController.m; sourceTree = "<group>"; };
 		3D72599515DE51B8005E4539 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3D72599715DE57CE005E4539 /* william.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = william.gpx; sourceTree = "<group>"; };
+		3DF7DAE715F47CE8003C62CD /* MBInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBInfoViewController.h; sourceTree = "<group>"; };
+		3DF7DAE815F47CE8003C62CD /* MBInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBInfoViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +108,8 @@
 				0A4C4B5D157DA51F003919BB /* MBAppDelegate.m */,
 				3D72599215DE5052005E4539 /* MBMapViewController.h */,
 				3D72599315DE5052005E4539 /* MBMapViewController.m */,
+				3DF7DAE715F47CE8003C62CD /* MBInfoViewController.h */,
+				3DF7DAE815F47CE8003C62CD /* MBInfoViewController.m */,
 				3D6377A115F03A120075003C /* MBAPIAccess.h */,
 				3D6377A215F03A120075003C /* MBAPIAccess.m */,
 				3D99449115E91DD800CA5AB4 /* Model */,
@@ -211,6 +216,7 @@
 				3D6377A615F03E100075003C /* MBAddress.m in Sources */,
 				3D6377A915F040970075003C /* MBResponse.m in Sources */,
 				3D22C26415F251E100451FA1 /* NSDictionary+MBAdditions.m in Sources */,
+				3DF7DAE915F47CE8003C62CD /* MBInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
