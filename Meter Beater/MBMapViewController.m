@@ -43,6 +43,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 
 @implementation MBMapViewController
 {
+    BOOL                 forceRequest;
     BOOL                 ignoreRegionChanges;
     NSMutableDictionary *cachedAddresses;
     NSMutableDictionary *cachedOverlays;
@@ -63,7 +64,11 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     CLLocation *location = [[[self mapView] userLocation] location];
     
     if(location != nil)
+    {
+        forceRequest = YES;
+        
         [[self mapView] setRegion:MKCoordinateRegionMakeWithDistance([location coordinate], MBMapSpan, MBMapSpan) animated:YES];
+    }
 }
 
 - (IBAction)MB_didTapSegmentedControl:(UISegmentedControl *)sender
@@ -153,9 +158,10 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 
 - (void)mapView:(MKMapView *)aMapView regionDidChangeAnimated:(BOOL)animated
 {
-    if((animated && lastRequest != nil && -[lastRequest timeIntervalSinceNow] < MBTimeBetweenRequests) || [[aMapView userLocation] location] == nil) return;
+    if(!forceRequest && (ignoreRegionChanges || (animated && lastRequest != nil && -[lastRequest timeIntervalSinceNow] < MBTimeBetweenRequests))) return;
     
-    lastRequest = [NSDate date];
+    forceRequest = NO;
+    lastRequest  = [NSDate date];
     
     CLLocationCoordinate2D coordinate = [aMapView centerCoordinate];
     
