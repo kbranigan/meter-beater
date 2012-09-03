@@ -25,11 +25,13 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 @interface MBMapViewController () <MKMapViewDelegate>
 
 @property(nonatomic, weak) IBOutlet MKMapView          *mapView;
-@property(nonatomic, weak) IBOutlet UIBarButtonItem    *trackButton;
+@property(nonatomic, weak) IBOutlet UIBarButtonItem    *trackButtonItem;
+@property(nonatomic, weak) IBOutlet UIBarButtonItem    *infoButtonItem;
+@property(nonatomic, weak) IBOutlet UIButton           *infoButton;
 @property(nonatomic, weak) IBOutlet UISegmentedControl *segmentedControl;
 @property(nonatomic, copy) NSArray                     *timeRanges;
 
-- (IBAction)MB_didTapTrackButton:(UIBarButtonItem *)sender;
+- (IBAction)MB_didTapTrackButtonItem:(UIBarButtonItem *)sender;
 
 @end
 
@@ -53,7 +55,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     CGSize               mapSpan;
 }
 
-@synthesize mapView, trackButton, segmentedControl, timeRanges;
+@synthesize mapView, trackButtonItem, infoButtonItem, infoButton, segmentedControl, timeRanges;
 
 - (UIColor *)MB_regionStrokeColour
 {
@@ -70,9 +72,9 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     return [UIColor colorWithHue:value / 3.0 saturation:1.0 brightness:1.0 alpha:1.0];
 }
 
-- (IBAction)MB_didTapTrackButton:(UIBarButtonItem *)sender
+- (IBAction)MB_didTapTrackButtonItem:(UIBarButtonItem *)sender
 {
-    [[self trackButton] setStyle:UIBarButtonItemStyleDone];
+    [[self trackButtonItem] setStyle:UIBarButtonItemStyleDone];
     
     CLLocation *location = [[[self mapView] userLocation] location];
     
@@ -165,7 +167,9 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     
     ignoreRegionChanges = YES;
     
-    [[self trackButton] setStyle:UIBarButtonItemStyleDone];
+    [[self trackButtonItem] setStyle:UIBarButtonItemStyleDone];
+    
+    [[self infoButtonItem] setCustomView:infoButton];
     
     [[self mapView] setShowsUserLocation:YES];
 }
@@ -175,7 +179,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 - (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
 {
     if(!ignoreRegionChanges && !animated)
-        [[self trackButton] setStyle:UIBarButtonItemStyleBordered];
+        [[self trackButtonItem] setStyle:UIBarButtonItemStyleBordered];
 }
 
 - (void)mapView:(MKMapView *)aMapView regionDidChangeAnimated:(BOOL)animated
@@ -280,7 +284,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     [defaults setFloat:coordinate.latitude  forKey:MBMostRecentLatitude];
     [defaults setFloat:coordinate.longitude forKey:MBMostRecentLongitude];
     
-    if([[self trackButton] style] == UIBarButtonItemStyleDone)
+    if([[self trackButtonItem] style] == UIBarButtonItemStyleDone)
     {
         ignoreRegionChanges = NO;
         

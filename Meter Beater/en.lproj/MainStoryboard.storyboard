@@ -40,10 +40,15 @@
                                 <rect key="frame" x="0.0" y="372" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
+                                    <barButtonItem systemItem="refresh" id="H1M-9j-DMh">
+                                        <connections>
+                                            <action selector="MB_didTapTrackButtonItem:" destination="mYq-Cm-y4T" id="xtX-H9-6DR"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="ICh-sr-yYb"/>
                                     <barButtonItem style="plain" id="3Eh-ic-tgx">
                                         <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Wto-Vu-ET9">
-                                            <rect key="frame" x="56" y="8" width="207" height="30"/>
+                                            <rect key="frame" x="54" y="8" width="207" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <segments>
                                                 <segment title="60"/>
@@ -56,6 +61,8 @@
                                         </segmentedControl>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Ycg-wO-Sio"/>
+                                    <barButtonItem title="?" id="HAc-xa-uEa"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="jRQ-KJ-wMj"/>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -63,23 +70,30 @@
                     </view>
                     <navigationItem key="navigationItem" title="Meter Beater" id="Baa-dc-kpb">
                         <barButtonItem key="backBarButtonItem" title="Map" id="Akq-ju-vSM"/>
-                        <barButtonItem key="leftBarButtonItem" title="?" id="HAc-xa-uEa">
-                            <connections>
-                                <segue destination="Upm-DH-qVy" kind="push" id="JSW-rl-mIg"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="H1M-9j-DMh">
-                            <connections>
-                                <action selector="MB_didTapTrackButton:" destination="mYq-Cm-y4T" id="Sjf-bx-AmY"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="infoButton" destination="ZHl-YW-ekU" id="fB8-pd-aI1"/>
+                        <outlet property="infoButtonItem" destination="HAc-xa-uEa" id="SS8-II-8Xh"/>
                         <outlet property="mapView" destination="WVU-XJ-bgP" id="2Re-JQ-j3f"/>
                         <outlet property="segmentedControl" destination="Wto-Vu-ET9" id="JlW-DK-lIS"/>
-                        <outlet property="trackButton" destination="H1M-9j-DMh" id="Uho-3q-hR3"/>
+                        <outlet property="trackButtonItem" destination="H1M-9j-DMh" id="yjx-BS-R4y"/>
                     </connections>
                 </viewController>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="ZHl-YW-ekU">
+                    <rect key="frame" x="27" y="9" width="18" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <state key="normal">
+                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="highlighted">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <segue destination="Upm-DH-qVy" kind="push" id="a0G-kJ-5Ex"/>
+                    </connections>
+                </button>
             </objects>
             <point key="canvasLocation" x="225" y="722"/>
         </scene>
@@ -89,11 +103,11 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DYG-qg-S1J" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="Upm-DH-qVy" customClass="MBInfoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gLW-96-GCe">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" id="lVs-qO-pG8">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
@@ -120,10 +134,12 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MBMapViewController.h"/>
             <relationships>
                 <relationship kind="action" name="MB_didTapSegmentedControl:" candidateClass="UISegmentedControl"/>
-                <relationship kind="action" name="MB_didTapTrackButton:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="action" name="MB_didTapTrackButtonItem:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="infoButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="infoButtonItem" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
                 <relationship kind="outlet" name="segmentedControl" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="trackButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="trackButtonItem" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
     </classes>
