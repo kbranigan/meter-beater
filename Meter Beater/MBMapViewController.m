@@ -16,7 +16,7 @@
 
 static const CGFloat        MBMapSpan             = 250.0;
 static const CGFloat        MBRegionLineWidth     =   3.0;
-static const CGFloat        MBAddressLineWidth    =   1.0;
+static const CGFloat        MBAddressLineWidth    =   3.0;
 static const NSTimeInterval MBTimeBetweenRequests =   5.0;
 
 static NSString * const MBMostRecentLatitude  = @"MBMostRecentLatitude";
@@ -69,7 +69,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 
 - (UIColor *)MB_colourForValue:(CGFloat)value
 {
-    return [UIColor colorWithHue:value / 3.0 saturation:1.0 brightness:1.0 alpha:1.0];
+    return [UIColor colorWithHue:MAX(0.0, (1.0 - value) / 3.0) saturation:1.0 brightness:0.8 alpha:1.0];
 }
 
 - (IBAction)MB_didTapTrackButtonItem:(UIBarButtonItem *)sender
