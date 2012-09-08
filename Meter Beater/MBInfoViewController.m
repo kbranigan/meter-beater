@@ -8,9 +8,10 @@
 
 #import "MBInfoViewController.h"
 
-@interface MBInfoViewController ()
+@interface MBInfoViewController () <UIWebViewDelegate>
 
-@property(nonatomic, weak) IBOutlet UIWebView *webView;
+@property(nonatomic, weak) IBOutlet UIWebView               *webView;
+@property(nonatomic, weak) IBOutlet UIActivityIndicatorView *indicator;
 
 @end
 
@@ -35,6 +36,29 @@
 #endif
     
     [[self webView] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    
+    [[self indicator] setHidesWhenStopped:YES];
+}
+
+#pragma mark - UIWebViewDelegate conformance
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    [[self indicator] startAnimating];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [[self indicator] stopAnimating];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [[self indicator] stopAnimating];
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Internet Error" message:@"Something went bad on the Internet." delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
+    
+    [alertView show];
 }
 
 @end
