@@ -23,7 +23,9 @@
 		3D6377A915F040970075003C /* MBResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6377A815F040970075003C /* MBResponse.m */; };
 		3D72599415DE5052005E4539 /* MBMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D72599315DE5052005E4539 /* MBMapViewController.m */; };
 		3D72599615DE51B8005E4539 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D72599515DE51B8005E4539 /* MapKit.framework */; };
-		3D72599815DE57CE005E4539 /* william.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 3D72599715DE57CE005E4539 /* william.gpx */; };
+		3DC0F3D815FAF00700E9BAFE /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DC0F3D215FAF00700E9BAFE /* CrashReporter.framework */; };
+		3DC0F3D915FAF00700E9BAFE /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DC0F3D315FAF00700E9BAFE /* HockeySDK.framework */; };
+		3DC0F3DA15FAF00700E9BAFE /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3DC0F3D415FAF00700E9BAFE /* HockeySDKResources.bundle */; };
 		3DF7DAE915F47CE8003C62CD /* MBInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF7DAE815F47CE8003C62CD /* MBInfoViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +58,11 @@
 		3D72599315DE5052005E4539 /* MBMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMapViewController.m; sourceTree = "<group>"; };
 		3D72599515DE51B8005E4539 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3D72599715DE57CE005E4539 /* william.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = william.gpx; sourceTree = "<group>"; };
+		3DC0F3D215FAF00700E9BAFE /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CrashReporter.framework; path = "Meter Beater/Vendors/HockeySDK-iOS/CrashReporter.framework"; sourceTree = "<group>"; };
+		3DC0F3D315FAF00700E9BAFE /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = "Meter Beater/Vendors/HockeySDK-iOS/HockeySDK.framework"; sourceTree = "<group>"; };
+		3DC0F3D415FAF00700E9BAFE /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
+		3DC0F3D515FAF00700E9BAFE /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		3DC0F3D615FAF00700E9BAFE /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		3DF7DAE715F47CE8003C62CD /* MBInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBInfoViewController.h; sourceTree = "<group>"; };
 		3DF7DAE815F47CE8003C62CD /* MBInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBInfoViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,11 +72,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D72599615DE51B8005E4539 /* MapKit.framework in Frameworks */,
-				0A8680211596667400E6A5CF /* CoreLocation.framework in Frameworks */,
-				0A4C4B4E157DA51F003919BB /* UIKit.framework in Frameworks */,
-				0A4C4B50157DA51F003919BB /* Foundation.framework in Frameworks */,
 				0A4C4B52157DA51F003919BB /* CoreGraphics.framework in Frameworks */,
+				0A8680211596667400E6A5CF /* CoreLocation.framework in Frameworks */,
+				3DC0F3D815FAF00700E9BAFE /* CrashReporter.framework in Frameworks */,
+				0A4C4B50157DA51F003919BB /* Foundation.framework in Frameworks */,
+				3DC0F3D915FAF00700E9BAFE /* HockeySDK.framework in Frameworks */,
+				3D72599615DE51B8005E4539 /* MapKit.framework in Frameworks */,
+				0A4C4B4E157DA51F003919BB /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				0A4C4B53157DA51F003919BB /* Meter Beater */,
+				3DC0F3CF15FAF00700E9BAFE /* Vendors */,
 				0A4C4B4C157DA51F003919BB /* Frameworks */,
 				0A4C4B4A157DA51F003919BB /* Products */,
 			);
@@ -98,7 +108,9 @@
 			children = (
 				0A4C4B51157DA51F003919BB /* CoreGraphics.framework */,
 				0A8680201596667400E6A5CF /* CoreLocation.framework */,
+				3DC0F3D215FAF00700E9BAFE /* CrashReporter.framework */,
 				0A4C4B4F157DA51F003919BB /* Foundation.framework */,
+				3DC0F3D315FAF00700E9BAFE /* HockeySDK.framework */,
 				3D72599515DE51B8005E4539 /* MapKit.framework */,
 				0A4C4B4D157DA51F003919BB /* UIKit.framework */,
 			);
@@ -160,6 +172,25 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		3DC0F3CF15FAF00700E9BAFE /* Vendors */ = {
+			isa = PBXGroup;
+			children = (
+				3DC0F3D015FAF00700E9BAFE /* HockeySDK-iOS */,
+			);
+			name = Vendors;
+			path = "Meter Beater/Vendors";
+			sourceTree = "<group>";
+		};
+		3DC0F3D015FAF00700E9BAFE /* HockeySDK-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				3DC0F3D415FAF00700E9BAFE /* HockeySDKResources.bundle */,
+				3DC0F3D515FAF00700E9BAFE /* LICENSE.txt */,
+				3DC0F3D615FAF00700E9BAFE /* README.md */,
+			);
+			path = "HockeySDK-iOS";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -214,9 +245,9 @@
 			files = (
 				0A4C4B58157DA51F003919BB /* InfoPlist.strings in Resources */,
 				0A4C4B61157DA51F003919BB /* MainStoryboard.storyboard in Resources */,
-				3D72599815DE57CE005E4539 /* william.gpx in Resources */,
 				3D4CAD8315F502FB00DB81E2 /* MBLocationIcon.png in Resources */,
 				3D4CAD8415F502FB00DB81E2 /* MBLocationIcon@2x.png in Resources */,
+				3DC0F3DA15FAF00700E9BAFE /* HockeySDKResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +339,10 @@
 		0A4C4B68157DA51F003919BB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Meter Beater/Vendors/HockeySDK-iOS\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Meter Beater/Meter Beater-Prefix.pch";
 				INFOPLIST_FILE = "Meter Beater/Meter Beater-Info.plist";
@@ -320,6 +355,10 @@
 		0A4C4B69157DA51F003919BB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Meter Beater/Vendors/HockeySDK-iOS\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Meter Beater/Meter Beater-Prefix.pch";
 				INFOPLIST_FILE = "Meter Beater/Meter Beater-Info.plist";
