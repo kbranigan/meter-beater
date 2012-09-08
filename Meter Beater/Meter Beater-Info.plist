@@ -24,6 +24,10 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MBHockeyBetaIdentifierKey</key>
+	<string>ee000549b5fb4bd59a684ec2a7eff8dc</string>
+	<key>MBHockeyLiveIdentifierKey</key>
+	<string>ee000549b5fb4bd59a684ec2a7eff8dc</string>
 	<key>MBAPIAccessHost</key>
 	<string>http://meterbeater.branigan.ca:4512</string>
 	<key>MBAPIAccessMapEndpoint</key>

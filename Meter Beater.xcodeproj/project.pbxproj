@@ -26,6 +26,7 @@
 		3DC0F3D815FAF00700E9BAFE /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DC0F3D215FAF00700E9BAFE /* CrashReporter.framework */; };
 		3DC0F3D915FAF00700E9BAFE /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DC0F3D315FAF00700E9BAFE /* HockeySDK.framework */; };
 		3DC0F3DA15FAF00700E9BAFE /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3DC0F3D415FAF00700E9BAFE /* HockeySDKResources.bundle */; };
+		3DC0F3DE15FAF67B00E9BAFE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DC0F3DD15FAF67B00E9BAFE /* QuartzCore.framework */; };
 		3DF7DAE915F47CE8003C62CD /* MBInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF7DAE815F47CE8003C62CD /* MBInfoViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +64,7 @@
 		3DC0F3D415FAF00700E9BAFE /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
 		3DC0F3D515FAF00700E9BAFE /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		3DC0F3D615FAF00700E9BAFE /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		3DC0F3DD15FAF67B00E9BAFE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3DF7DAE715F47CE8003C62CD /* MBInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBInfoViewController.h; sourceTree = "<group>"; };
 		3DF7DAE815F47CE8003C62CD /* MBInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBInfoViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,6 +80,7 @@
 				0A4C4B50157DA51F003919BB /* Foundation.framework in Frameworks */,
 				3DC0F3D915FAF00700E9BAFE /* HockeySDK.framework in Frameworks */,
 				3D72599615DE51B8005E4539 /* MapKit.framework in Frameworks */,
+				3DC0F3DE15FAF67B00E9BAFE /* QuartzCore.framework in Frameworks */,
 				0A4C4B4E157DA51F003919BB /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -112,6 +115,7 @@
 				0A4C4B4F157DA51F003919BB /* Foundation.framework */,
 				3DC0F3D315FAF00700E9BAFE /* HockeySDK.framework */,
 				3D72599515DE51B8005E4539 /* MapKit.framework */,
+				3DC0F3DD15FAF67B00E9BAFE /* QuartzCore.framework */,
 				0A4C4B4D157DA51F003919BB /* UIKit.framework */,
 			);
 			name = Frameworks;
