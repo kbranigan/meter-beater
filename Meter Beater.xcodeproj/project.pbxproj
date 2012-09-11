@@ -351,6 +351,10 @@
 				GCC_PREFIX_HEADER = "Meter Beater/Meter Beater-Prefix.pch";
 				INFOPLIST_FILE = "Meter Beater/Meter Beater-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "Meter Beater";
 				WRAPPER_EXTENSION = app;
 			};
@@ -367,6 +371,10 @@
 				GCC_PREFIX_HEADER = "Meter Beater/Meter Beater-Prefix.pch";
 				INFOPLIST_FILE = "Meter Beater/Meter Beater-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "Meter Beater";
 				WRAPPER_EXTENSION = app;
 			};
