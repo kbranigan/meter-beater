@@ -17,7 +17,7 @@
 
 @implementation MBInfoViewController
 
-@synthesize webView;
+@synthesize webView, indicator;
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
