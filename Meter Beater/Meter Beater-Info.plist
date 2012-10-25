@@ -8,6 +8,19 @@
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleIcons</key>
+	<dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>icon114cropped.png</string>
+				<string>icon57cropped.png</string>
+			</array>
+			<key>UIPrerenderedIcon</key>
+			<true/>
+		</dict>
+	</dict>
 	<key>CFBundleIdentifier</key>
 	<string>kevinbranigan.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -24,20 +37,22 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MBAPIAccessHost</key>
+	<string>http://meterbeater.branigan.ca:4512</string>
+	<key>MBAPIAccessInfoEndpoint</key>
+	<string>/info.html</string>
+	<key>MBAPIAccessMapEndpoint</key>
+	<string>/near</string>
+	<key>MBAPIAccessVersion</key>
+	<string>1.0</string>
 	<key>MBHockeyBetaIdentifierKey</key>
 	<string>ee000549b5fb4bd59a684ec2a7eff8dc</string>
 	<key>MBHockeyLiveIdentifierKey</key>
 	<string>ee000549b5fb4bd59a684ec2a7eff8dc</string>
-	<key>MBAPIAccessHost</key>
-	<string>http://meterbeater.branigan.ca:4512</string>
-	<key>MBAPIAccessMapEndpoint</key>
-	<string>/near</string>
-	<key>MBAPIAccessInfoEndpoint</key>
-	<string>/info.html</string>
-	<key>MBAPIAccessVersion</key>
-	<string>1.0</string>
 	<key>UIMainStoryboardFile</key>
 	<string>MainStoryboard</string>
+	<key>UIPrerenderedIcon</key>
+	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
