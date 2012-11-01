@@ -8,14 +8,14 @@
 
 #import "MBAppDelegate.h"
 
-#import <HockeySDK/HockeySDK.h>
+//#import <HockeySDK/HockeySDK.h>
 
-static NSString * const MBHockeyBetaIdentifierKey = @"MBHockeyBetaIdentifierKey";
-static NSString * const MBHockeyLiveIdentifierKey = @"MBHockeyLiveIdentifierKey";
+//static NSString * const MBHockeyBetaIdentifierKey = @"MBHockeyBetaIdentifierKey";
+//static NSString * const MBHockeyLiveIdentifierKey = @"MBHockeyLiveIdentifierKey";
 
-@interface MBAppDelegate () <BITCrashManagerDelegate, BITHockeyManagerDelegate, BITUpdateManagerDelegate>
+//@interface MBAppDelegate () <BITCrashManagerDelegate, BITHockeyManagerDelegate, BITUpdateManagerDelegate>
 
-@end
+//@end
 
 @implementation MBAppDelegate
 
@@ -23,21 +23,21 @@ static NSString * const MBHockeyLiveIdentifierKey = @"MBHockeyLiveIdentifierKey"
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    //NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     
-    NSString *betaIdentifier = [infoDictionary objectForKey:MBHockeyBetaIdentifierKey];
-    NSString *liveIdentifier = [infoDictionary objectForKey:MBHockeyLiveIdentifierKey];
+    //NSString *betaIdentifier = [infoDictionary objectForKey:MBHockeyBetaIdentifierKey];
+    //NSString *liveIdentifier = [infoDictionary objectForKey:MBHockeyLiveIdentifierKey];
     
-    [[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:betaIdentifier liveIdentifier:liveIdentifier delegate:self];
-    
-    [[BITHockeyManager sharedHockeyManager] startManager];
+    //[[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:betaIdentifier liveIdentifier:liveIdentifier delegate:self];
+  
+    //[[BITHockeyManager sharedHockeyManager] startManager];
     
     return YES;
 }
 
 #pragma mark - BITUpdateManagerDelegate conformance
 
-- (NSString *)customDeviceIdentifierForUpdateManager:(BITUpdateManager *)updateManager
+/*- (NSString *)customDeviceIdentifierForUpdateManager:(BITUpdateManager *)updateManager
 {
 #ifndef RELEASE_BUILD
     UIDevice *device = [UIDevice currentDevice];
@@ -47,6 +47,6 @@ static NSString * const MBHockeyLiveIdentifierKey = @"MBHockeyLiveIdentifierKey"
 #endif
     
     return nil;
-}
+}*/
 
 @end

@@ -15,6 +15,9 @@
 		0A4C4B5E157DA51F003919BB /* MBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C4B5D157DA51F003919BB /* MBAppDelegate.m */; };
 		0A4C4B61157DA51F003919BB /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A4C4B5F157DA51F003919BB /* MainStoryboard.storyboard */; };
 		0A8680211596667400E6A5CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A8680201596667400E6A5CF /* CoreLocation.framework */; };
+		0AC7CB9F16433C2600D92E0D /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ADA02BC1639962F00606427 /* Default@2x.png */; };
+		0AC7CBA016433C3800D92E0D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AEC03CE163A2D0400F299B8 /* Default-568h@2x.png */; };
+		0AC7CBA116433C3F00D92E0D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ADA02BE1639972D00606427 /* Default.png */; };
 		0ADA02B9163981C400606427 /* icon114cropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ADA02B8163981C400606427 /* icon114cropped.png */; };
 		0ADA02BB163981E600606427 /* icon57cropped.png in Resources */ = {isa = PBXBuildFile; fileRef = 0ADA02BA163981E600606427 /* icon57cropped.png */; };
 		3D22C26415F251E100451FA1 /* NSDictionary+MBAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D22C26315F251E100451FA1 /* NSDictionary+MBAdditions.m */; };
@@ -25,7 +28,6 @@
 		3D6377A915F040970075003C /* MBResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6377A815F040970075003C /* MBResponse.m */; };
 		3D72599415DE5052005E4539 /* MBMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D72599315DE5052005E4539 /* MBMapViewController.m */; };
 		3D72599615DE51B8005E4539 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D72599515DE51B8005E4539 /* MapKit.framework */; };
-		3DC0F3D815FAF00700E9BAFE /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DC0F3D215FAF00700E9BAFE /* CrashReporter.framework */; };
 		3DC0F3D915FAF00700E9BAFE /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DC0F3D315FAF00700E9BAFE /* HockeySDK.framework */; };
 		3DC0F3DA15FAF00700E9BAFE /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3DC0F3D415FAF00700E9BAFE /* HockeySDKResources.bundle */; };
 		3DC0F3DE15FAF67B00E9BAFE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DC0F3DD15FAF67B00E9BAFE /* QuartzCore.framework */; };
@@ -47,6 +49,9 @@
 		0A8680201596667400E6A5CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0ADA02B8163981C400606427 /* icon114cropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon114cropped.png; sourceTree = "<group>"; };
 		0ADA02BA163981E600606427 /* icon57cropped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon57cropped.png; sourceTree = "<group>"; };
+		0ADA02BC1639962F00606427 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		0ADA02BE1639972D00606427 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		0AEC03CE163A2D0400F299B8 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		3D22C26215F251E100451FA1 /* NSDictionary+MBAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+MBAdditions.h"; sourceTree = "<group>"; };
 		3D22C26315F251E100451FA1 /* NSDictionary+MBAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+MBAdditions.m"; sourceTree = "<group>"; };
 		3D4CAD8115F502FB00DB81E2 /* MBLocationIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MBLocationIcon.png; sourceTree = "<group>"; };
@@ -63,7 +68,6 @@
 		3D72599315DE5052005E4539 /* MBMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBMapViewController.m; sourceTree = "<group>"; };
 		3D72599515DE51B8005E4539 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3D72599715DE57CE005E4539 /* william.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = william.gpx; sourceTree = "<group>"; };
-		3DC0F3D215FAF00700E9BAFE /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CrashReporter.framework; path = "Meter Beater/Vendors/HockeySDK-iOS/CrashReporter.framework"; sourceTree = "<group>"; };
 		3DC0F3D315FAF00700E9BAFE /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HockeySDK.framework; path = "Meter Beater/Vendors/HockeySDK-iOS/HockeySDK.framework"; sourceTree = "<group>"; };
 		3DC0F3D415FAF00700E9BAFE /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
 		3DC0F3D515FAF00700E9BAFE /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
@@ -80,7 +84,6 @@
 			files = (
 				0A4C4B52157DA51F003919BB /* CoreGraphics.framework in Frameworks */,
 				0A8680211596667400E6A5CF /* CoreLocation.framework in Frameworks */,
-				3DC0F3D815FAF00700E9BAFE /* CrashReporter.framework in Frameworks */,
 				0A4C4B50157DA51F003919BB /* Foundation.framework in Frameworks */,
 				3DC0F3D915FAF00700E9BAFE /* HockeySDK.framework in Frameworks */,
 				3D72599615DE51B8005E4539 /* MapKit.framework in Frameworks */,
@@ -95,6 +98,9 @@
 		0A4C4B3E157DA51E003919BB = {
 			isa = PBXGroup;
 			children = (
+				0AEC03CE163A2D0400F299B8 /* Default-568h@2x.png */,
+				0ADA02BE1639972D00606427 /* Default.png */,
+				0ADA02BC1639962F00606427 /* Default@2x.png */,
 				0ADA02BA163981E600606427 /* icon57cropped.png */,
 				0ADA02B8163981C400606427 /* icon114cropped.png */,
 				0A4C4B53157DA51F003919BB /* Meter Beater */,
@@ -117,7 +123,6 @@
 			children = (
 				0A4C4B51157DA51F003919BB /* CoreGraphics.framework */,
 				0A8680201596667400E6A5CF /* CoreLocation.framework */,
-				3DC0F3D215FAF00700E9BAFE /* CrashReporter.framework */,
 				0A4C4B4F157DA51F003919BB /* Foundation.framework */,
 				3DC0F3D315FAF00700E9BAFE /* HockeySDK.framework */,
 				3D72599515DE51B8005E4539 /* MapKit.framework */,
@@ -260,6 +265,9 @@
 				3DC0F3DA15FAF00700E9BAFE /* HockeySDKResources.bundle in Resources */,
 				0ADA02B9163981C400606427 /* icon114cropped.png in Resources */,
 				0ADA02BB163981E600606427 /* icon57cropped.png in Resources */,
+				0AC7CB9F16433C2600D92E0D /* Default@2x.png in Resources */,
+				0AC7CBA016433C3800D92E0D /* Default-568h@2x.png in Resources */,
+				0AC7CBA116433C3F00D92E0D /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,6 +317,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -323,7 +332,8 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -334,6 +344,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -341,8 +352,9 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

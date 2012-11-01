@@ -12,6 +12,7 @@ This document contains the following sections:
 - [Submit the UDID](#udid)
 - [Mac Desktop Uploader](#mac)
 - [Xcode Documentation](#documentation)
+- [Changelog](#changelog)
 
 <a id="requirements"></a> 
 ## Requirements
@@ -48,7 +49,6 @@ If you need support for iOS 3.x, please check out [HockeyKit](http://support.hoc
 
 8. The following entries should be present:
     * CoreGraphics.framework
-    * CrashReporter.framework
     * Foundation.framework
     * HockeySDK.framework
     * QuartzCore.framework
@@ -57,22 +57,24 @@ If you need support for iOS 3.x, please check out [HockeyKit](http://support.hoc
 
 9. If one of the frameworks is missing, then click the + button, search the framework and confirm with the `Add` button.
 
-10. Select `Build Phases`
+10. Remove `CrashReporter.framework` if present, and also remove if from the project by deleting it also from the filesystem
 
-11. Expand `Copy Bundle Resources`.
+11. Select `Build Phases`
 
-12. The following entries should be present:
+12. Expand `Copy Bundle Resources`.
+
+13. The following entries should be present:
   * `HockeySDKResources.bundle`
 
-13. Select `Build Settings`
+14. Select `Build Settings`
 
-14. Search for `Other Linker Flags`
+15. Select `Build Settings`
 
-15. Double click on the build setting titled `Other Linker Flags`.
+16. Search `Framework Search Paths`
 
-16. Add `-ObjC`
+17. Make sure that the list does not contain a path pointing to the `QuincyKit` SDK or another framework that contains `PLCrashReporter`
 
-17. HockeySDK-iOS needs a JSON library if your deployment target is iOS 4.x. Please include one of the following libraries:
+18. HockeySDK-iOS needs a JSON library if your deployment target is iOS 4.x. Please include one of the following libraries:
     * [JSONKit](https://github.com/johnezang/JSONKit)
     * [SBJSON](https://github.com/stig/json-framework)
     * [YAJL](https://github.com/gabriel/yajl-objc)
@@ -153,7 +155,84 @@ This documentation provides integrated help in Xcode for all public APIs and a s
 
 3. Copy the content into ~`/Library/Developer/Shared/Documentation/DocSet`
 
+<a id="changelog"></a> 
 ## Changelog
+
+### Version 2.5.4
+
+- General:
+
+    - Declared as final release, since everything in 2.5.4b3 is working as expected
+
+### Version 2.5.4b3
+
+- General:
+
+    - [NEW] Atlassian JMC support disabled (Use subproject integration if you want it)
+
+### Version 2.5.4b2
+
+- Crash Reporting:
+
+    - [UPDATE] Migrate pre v2.5 auto send user setting
+    - [BUGFIX] The alert option 'Auto Send' did not persist correctly
+
+- Updating:
+
+    - [BUGFIX] Authorization option did not persist correctly and caused authorization to re-appear on every cold app start
+
+### Version 2.5.4b1
+
+- General:
+
+    - [NEW] JMC support is removed from binary distribution, requires the compiler preprocessor definition `JIRA_MOBILE_CONNECT_SUPPORT_ENABLED=1` to be linked. Enabled when using the subproject
+    - [BUGFIX] Fix compiler warnings when using Cocoapods
+
+- Updating:
+
+    - [BUGFIX] `expiryDate` property not working correctly
+
+### Version 2.5.3
+
+- General:
+
+    - [BUGFIX] Fix checking validity of live identifier not working correctly
+
+### Version 2.5.2
+
+- General:
+
+    - Declared as final release, since everything in 2.5.2b2 is working as expected
+
+### Version 2.5.2b2
+
+- General:
+
+    - [NEW] Added support for armv7s architecture
+
+- Updating:
+
+    - [BUGFIX] Fix update checks not done when the app becomes active again
+
+### Version 2.5.2b1
+
+- General:
+
+    - [NEW] Replace categories with C functions, so the `Other Linker Flag` `-ObjC` and `-all_load` won't not be needed for integration
+	- [BUGFIX] Some code style fixes and missing new lines in headers at EOF
+
+- Crash Reporting:
+
+    - [NEW] PLCrashReporter framework now linked into the HockeySDK framework, so that won't be needed to be added separately any more
+    - [NEW] Add some error handler detection to optionally notify the developer of multiple handlers that could cause crashes not to be reported to HockeyApp
+    - [NEW] Show an error in the console if an older version of PLCrashReporter is linked
+    - [NEW] Make sure the app doesn't crash if the developer forgot to delete the old PLCrashReporter version and the framework search path is still pointing to it
+
+- Updating:
+
+    - [BUGFIX] Fix disabling usage tracking and expiry check not working if `checkForUpdateOnLaunch` is set to NO
+    - [BUGFIX] `disableUpdateManager` wasn't working correctly
+    - [BUGFIX] If the server doesn't return any app versions, don't handle this as an error, but show a warning in the console when `debugLogging` is enabled
 
 ### Version 2.5.1
 

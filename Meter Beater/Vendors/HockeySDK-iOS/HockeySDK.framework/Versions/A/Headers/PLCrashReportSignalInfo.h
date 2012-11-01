@@ -1,7 +1,7 @@
 /*
- * Author: Andreas Linde <mail@andreaslinde.de>
+ * Author: Landon Fuller <landonf@plausiblelabs.com>
  *
- * Copyright (c) 2012 HockeyApp, Bit Stadium GmbH.
+ * Copyright (c) 2008-2009 Plausible Labs Cooperative, Inc.
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person
@@ -28,31 +28,33 @@
 
 #import <Foundation/Foundation.h>
 
+@interface PLCrashReportSignalInfo : NSObject {
+@private
+    /** Signal name */
+    NSString *_name;
+    
+    /** Signal code */
+    NSString *_code;
+
+    /** Fauling instruction or address */
+    uint64_t _address;
+}
+
+- (id) initWithSignalName: (NSString *) name code: (NSString *) code address: (uint64_t) address;
 
 /**
- The `BITHockeyManagerDelegate` formal protocol defines methods further configuring
-  the behaviour of `BITHockeyManager`.
+ * The signal name.
  */
-
-@protocol BITHockeyManagerDelegate <NSObject>
-
-@optional
+@property(nonatomic, readonly) NSString *name;
 
 /**
- Implement to force the usage of the live identifier
- 
- This is useful if you are e.g. distributing an enterprise app inside your company
- and want to use the `liveIdentifier` for that even though it is not running from
- the App Store.
- 
- Example:
-    - (BOOL)shouldUseLiveIdentifier {
-    #ifdef (CONFIGURATION_Release)
-      return YES;
-    #endif
-      return NO;
-    }
+ * The signal code.
  */
-- (BOOL)shouldUseLiveIdentifier;
+@property(nonatomic, readonly) NSString *code;
+
+/**
+ * The faulting instruction or address.
+ */
+@property(nonatomic, readonly) uint64_t address;
 
 @end

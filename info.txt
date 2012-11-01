@@ -1,0 +1,24 @@
+Parking tickets have become a part driving downtown Toronto; everyone gets them eventually.  With Meter Beater, tickets are now only for the uninformed.  The map produced in Meter Beater is built using predictive models of actual historic tickets issued - this map isn't built according to the rules, it's built according to the _enforcement_ of the rules.  Dodge that meter maid.
+
+Data is based on parking tickets issued within the political boundary of Toronto since the beginning of 2008.  Around 2.7 million tickets are issued each year to the half a million addresses in Toronto.  My apartment building makes the City of Toronto around 1.5 thousand dollars each year in 30-50$ parking tickets, which I suppose isn't such a big deal actually.
+
+A few caveats:
+– My software is only as good as the data, though it's pretty good and getting better.
+– If you are the first person to get a ticket at a location for a particular date/time, there isn't much I could have done to predict that.  Parking on the highway for example.  It's still up to you to make sure you double check the signs and the meters.
+– If you find a situation where I'm not reporting accurately (I haven't been able to explore the entire city after all) let me know and I'll do my best to fix it.
+– Go easy on me, it's my first iOS app.
+
+===========
+
+Ever run in to drop off your dry cleaning, only to come back to a $50 parking ticket? What were the chances the meter maids would be coming by right then?
+
+Enter Meter Beater.
+
+Meter Beater uses state-of-the-art computer modelling to answer the age-old question: "Should I chance it?" 
+
+One look at Meter Beater, and you'll know whether you're in the clear or if you're parking in what Kenny Loggins calls The Danger Zone.
+
+
+DISCLAIMER:
+
+Some spots get ticketed all the time, while others get ticketed only very occasionally. While using Meter Beater will help you avoid the hot spots, you can still get a ticket anywhere parking is illegal.

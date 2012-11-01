@@ -1,7 +1,7 @@
 /*
- * Author: Andreas Linde <mail@andreaslinde.de>
+ * Author: Landon Fuller <landonf@plausiblelabs.com>
  *
- * Copyright (c) 2012 HockeyApp, Bit Stadium GmbH.
+ * Copyright (c) 2008-2009 Plausible Labs Cooperative, Inc.
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person
@@ -27,32 +27,39 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "PLCrashReportThreadInfo.h"
 
+
+@interface PLCrashReportExceptionInfo : NSObject {
+@private
+    /** Name */
+    NSString *_name;
+
+    /** Reason */
+    NSString *_reason;
+
+    /** Ordered list of PLCrashReportStackFrame instances, or nil if unavailable. */
+    NSArray *_stackFrames;
+}
+
+- (id) initWithExceptionName: (NSString *) name reason: (NSString *) reason;
+
+- (id) initWithExceptionName: (NSString *) name 
+                      reason: (NSString *) reason
+                 stackFrames: (NSArray *) stackFrames;
 
 /**
- The `BITHockeyManagerDelegate` formal protocol defines methods further configuring
-  the behaviour of `BITHockeyManager`.
+ * The exception name.
  */
-
-@protocol BITHockeyManagerDelegate <NSObject>
-
-@optional
+@property(nonatomic, readonly) NSString *exceptionName;
 
 /**
- Implement to force the usage of the live identifier
- 
- This is useful if you are e.g. distributing an enterprise app inside your company
- and want to use the `liveIdentifier` for that even though it is not running from
- the App Store.
- 
- Example:
-    - (BOOL)shouldUseLiveIdentifier {
-    #ifdef (CONFIGURATION_Release)
-      return YES;
-    #endif
-      return NO;
-    }
+ * The exception reason.
  */
-- (BOOL)shouldUseLiveIdentifier;
+@property(nonatomic, readonly) NSString *exceptionReason;
+
+/* The exception's original call stack, as an array of PLCrashReportStackFrameInfo instances, or nil if unavailable.
+ * This may be preserved across rethrow of an exception, and can be used to determine the original call stack. */
+@property(nonatomic, readonly) NSArray *stackFrames;
 
 @end

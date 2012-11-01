@@ -1,7 +1,8 @@
 /*
  * Author: Andreas Linde <mail@andreaslinde.de>
  *
- * Copyright (c) 2012 HockeyApp, Bit Stadium GmbH.
+ * Copyright (c) 2012 Plausible Labs Cooperative, Inc.
+ * Copyright (c) 2012 Andreas Linde
  * All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person
@@ -28,31 +29,17 @@
 
 #import <Foundation/Foundation.h>
 
+@interface PLCrashReportReportInfo : NSObject {
+@private
+    /** Crash Report GUID */
+    NSString *_reportGUID;
+}
+
+- (id) initWithReportGUID: (NSString *) reportGUID;
 
 /**
- The `BITHockeyManagerDelegate` formal protocol defines methods further configuring
-  the behaviour of `BITHockeyManager`.
+ * The crash report GUID.
  */
-
-@protocol BITHockeyManagerDelegate <NSObject>
-
-@optional
-
-/**
- Implement to force the usage of the live identifier
- 
- This is useful if you are e.g. distributing an enterprise app inside your company
- and want to use the `liveIdentifier` for that even though it is not running from
- the App Store.
- 
- Example:
-    - (BOOL)shouldUseLiveIdentifier {
-    #ifdef (CONFIGURATION_Release)
-      return YES;
-    #endif
-      return NO;
-    }
- */
-- (BOOL)shouldUseLiveIdentifier;
+@property(nonatomic, readonly) NSString *reportGUID;
 
 @end
