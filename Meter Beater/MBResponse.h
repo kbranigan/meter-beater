@@ -15,6 +15,7 @@
 @property(nonatomic, copy) NSArray *ranges;
 @property(nonatomic, copy) NSArray *addresses;
 @property(nonatomic)       CGRect   region;
+@property(nonatomic, copy) NSArray *paymentOptions;
 
 + (id)responseWithDictionary:(NSDictionary *)dictionary;
 

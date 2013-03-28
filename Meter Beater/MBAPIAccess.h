@@ -12,7 +12,7 @@
 
 + (void)cancelPendingRequests;
 
-+ (NSURL *)requestURLWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude;
++ (NSURL *)requestURLWithPayment:(NSString*)payment latitude:(CGFloat)latitude longitude:(CGFloat)longitude;
 
 + (void)requestObjectWithURL:(NSURL *)url completionBlock:(void (^)(NSDictionary *, NSError *))blk;
 

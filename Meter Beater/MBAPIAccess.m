@@ -97,9 +97,9 @@ static NSString * const MBAPIAccessIdentifierKey = @"MBAPIAccessIdentifierKey";
     [[self MB_connections] removeAllObjects];
 }
 
-+ (NSURL *)requestURLWithLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
++ (NSURL *)requestURLWithPayment:(NSString *)payment latitude:(CGFloat)latitude longitude:(CGFloat)longitude
 {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?v=%@&lat=%f&lng=%f", [[self class] MB_host], [[[NSBundle mainBundle] infoDictionary] objectForKey:@"MBAPIAccessMapEndpoint"], [[self class] MB_version], latitude, longitude]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?v=%@&payment=%@&lat=%f&lng=%f", [[self class] MB_host], [[[NSBundle mainBundle] infoDictionary] objectForKey:@"MBAPIAccessMapEndpoint"], [[self class] MB_version], payment, latitude, longitude]];
 }
 
 + (void)requestObjectWithURL:(NSURL *)url completionBlock:(void (^)(NSDictionary *, NSError *))blk

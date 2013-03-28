@@ -25,13 +25,19 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 @interface MBMapViewController () <MKMapViewDelegate>
 
 @property(nonatomic, weak) IBOutlet MKMapView          *mapView;
+@property(nonatomic, weak) IBOutlet UISegmentedControl *paymentControl;
+@property(nonatomic, copy) NSArray                     *paymentOptions;
 @property(nonatomic, weak) IBOutlet UIBarButtonItem    *trackButtonItem;
 @property(nonatomic, weak) IBOutlet UIBarButtonItem    *infoButtonItem;
+@property(nonatomic, weak) IBOutlet UIBarButtonItem    *negativeSeparator;
 @property(nonatomic, weak) IBOutlet UIButton           *infoButton;
-@property(nonatomic, weak) IBOutlet UISegmentedControl *segmentedControl;
+@property(nonatomic, weak) IBOutlet UISegmentedControl *timeControl;
 @property(nonatomic, copy) NSArray                     *timeRanges;
+@property(nonatomic, weak) IBOutlet UIBarButtonItem    *untilButton;
 
 - (IBAction)MB_didTapTrackButtonItem:(UIBarButtonItem *)sender;
+- (IBAction)MB_didTapPaymentControl:(UISegmentedControl *)sender;
+- (IBAction)MB_didTapTimeControl:(UISegmentedControl *)sender;
 
 @end
 
@@ -55,7 +61,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     CGSize               mapSpan;
 }
 
-@synthesize mapView, trackButtonItem, infoButtonItem, infoButton, segmentedControl, timeRanges;
+@synthesize mapView, paymentOptions, paymentControl, trackButtonItem, infoButtonItem, infoButton, timeControl, timeRanges, untilButton, negativeSeparator;
 
 - (UIColor *)MB_regionStrokeColour
 {
@@ -75,7 +81,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 - (IBAction)MB_didTapTrackButtonItem:(UIBarButtonItem *)sender
 {
     [[self trackButtonItem] setStyle:UIBarButtonItemStyleDone];
-    
+  
     CLLocation *location = [[[self mapView] userLocation] location];
     
     if(location != nil)
@@ -86,7 +92,12 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     }
 }
 
-- (IBAction)MB_didTapSegmentedControl:(UISegmentedControl *)sender
+- (IBAction)MB_didTapTimeControl:(UISegmentedControl *)sender
+{
+    [self MB_reloadMapView];
+}
+
+- (IBAction)MB_didTapPaymentControl:(UISegmentedControl *)sender
 {
     [self MB_reloadMapView];
 }
@@ -110,29 +121,58 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 {
     if(![ranges isEqualToArray:timeRanges])
     {
-        NSInteger  selectedIndex = [[self segmentedControl] selectedSegmentIndex];
+        NSInteger  selectedIndex = [[self timeControl] selectedSegmentIndex];
         NSNumber  *selectedRange = selectedIndex >= 0 && selectedIndex < [timeRanges count] ? [timeRanges objectAtIndex:selectedIndex] : nil;
         
         timeRanges = [ranges copy];
         
-        [[self segmentedControl] removeAllSegments];
+        [[self timeControl] removeAllSegments];
         
         for(id range in timeRanges)
-            [[self segmentedControl] insertSegmentWithTitle:[range description] atIndex:NSIntegerMax animated:NO];
+            [[self timeControl] insertSegmentWithTitle:[range description] atIndex:NSIntegerMax animated:NO];
         
         NSInteger index = [timeRanges indexOfObject:selectedRange];
         
         if(index == NSNotFound)
             index = selectedIndex;
-        if(index >= [[self segmentedControl] numberOfSegments])
-            index = [[self segmentedControl] numberOfSegments] - 1;
+        if(index >= [[self timeControl] numberOfSegments])
+            index = [[self timeControl] numberOfSegments] - 1;
         if(index < 0)
             index = 0;
         
-        [[self segmentedControl] setSelectedSegmentIndex:index];
+        [[self timeControl] setSelectedSegmentIndex:index];
         
         [self MB_reloadMapView];
     }
+}
+
+- (void)setPaymentOptions:(NSArray *)options
+{
+  if(![options isEqualToArray:paymentOptions])
+  {
+    NSInteger  selectedIndex = [[self paymentControl] selectedSegmentIndex];
+    NSNumber  *selectedRange = selectedIndex >= 0 && selectedIndex < [paymentOptions count] ? [paymentOptions objectAtIndex:selectedIndex] : nil;
+    
+    paymentOptions = [options copy];
+    
+    [[self paymentControl] removeAllSegments];
+    
+    for(id option in paymentOptions)
+      [[self paymentControl] insertSegmentWithTitle:[option description] atIndex:NSIntegerMax animated:NO];
+    
+    NSInteger index = [paymentOptions indexOfObject:selectedRange];
+    
+    if(index == NSNotFound)
+      index = selectedIndex;
+    if(index >= [[self timeControl] numberOfSegments])
+      index = [[self timeControl] numberOfSegments] - 1;
+    if(index < 0)
+      index = 0;
+    
+    [[self paymentControl] setSelectedSegmentIndex:index];
+    
+    [self MB_reloadMapView];
+  }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
@@ -144,13 +184,23 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
 {
     [super viewDidLoad];
     
-    [self setTimeRanges:[NSArray arrayWithObjects:@"1 hour", @"3 hours", @"6 hours", nil]];
+    [[self untilButton] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                [UIFont fontWithName:@"Helvetica-Bold" size:12.0], UITextAttributeFont, nil]
+                                      forState:UIControlStateNormal];
+    [[self untilButton] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                [UIColor whiteColor], UITextAttributeTextColor, nil]
+                                      forState:UIControlStateDisabled];
+    [[self untilButton] setTitle:@"until:"];
+    [[self negativeSeparator] setWidth:-10];
+  
+    [self setPaymentOptions:[NSArray arrayWithObjects:@"Free", @"Meter", @"Lots", nil]];
+    [self setTimeRanges:[NSArray arrayWithObjects:@"", @"", @"", nil]];
     
     cachedAddresses = [NSMutableDictionary dictionary];
     cachedOverlays  = [NSMutableDictionary dictionary];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
+  
     [defaults registerDefaults:
      [NSDictionary dictionaryWithObjectsAndKeys:
       [NSNumber numberWithFloat: 43.648100], MBMostRecentLatitude,
@@ -192,13 +242,15 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
     CLLocationCoordinate2D coordinate = [aMapView centerCoordinate];
     
     [MBAPIAccess cancelPendingRequests];
-    
-    [MBAPIAccess requestObjectWithURL:[MBAPIAccess requestURLWithLatitude:coordinate.latitude longitude:coordinate.longitude] completionBlock:
+  
+    NSString * payment = [paymentOptions objectAtIndex:[[self paymentControl] selectedSegmentIndex]];
+    [MBAPIAccess requestObjectWithURL:[MBAPIAccess requestURLWithPayment:payment latitude:coordinate.latitude longitude:coordinate.longitude] completionBlock:
      ^(NSDictionary *object, NSError *error)
      {
          MBResponse *response = [MBResponse responseWithDictionary:object];
          
          [self setTimeRanges:[response ranges]];
+         [self setPaymentOptions:[response paymentOptions]];
          
          NSMutableArray *removedIdentifiers = [NSMutableArray arrayWithCapacity:[cachedAddresses count]];
          
@@ -318,7 +370,7 @@ static NSString * const MBMostRecentLongitude = @"MBMostRecentLongitude";
         MKPolylineView *view = [[MKPolylineView alloc] initWithOverlay:overlay];
         
         [view setLineWidth:[[UIScreen mainScreen] scale] * MBAddressLineWidth];
-        [view setStrokeColor:[self MB_colourForValue:[[[[overlay address] values] objectAtIndex:[[self segmentedControl] selectedSegmentIndex]] floatValue]]];
+        [view setStrokeColor:[self MB_colourForValue:[[[[overlay address] values] objectAtIndex:[[self timeControl] selectedSegmentIndex]] floatValue]]];
         
         return view;
     }

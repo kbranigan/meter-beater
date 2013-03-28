@@ -9,13 +9,14 @@
 #import "MBResponse.h"
 #import "NSDictionary+MBAdditions.h"
 
-static NSString * const MBResponseRangesKey    = @"params.range_in_minutes";
-static NSString * const MBResponseAddressesKey = @"addresses";
-static NSString * const MBResponseRegionKey    = @"bbox";
+static NSString * const MBResponseRangesKey         = @"params.time_ranges";
+static NSString * const MBResponsePaymentOptionsKey = @"params.payment_options";
+static NSString * const MBResponseAddressesKey      = @"address_ranges";
+static NSString * const MBResponseRegionKey         = @"bbox";
 
 @implementation MBResponse
 
-@synthesize ranges, addresses, region;
+@synthesize ranges, addresses, region, paymentOptions;
 
 + (id)responseWithDictionary:(NSDictionary *)dictionary
 {
@@ -27,7 +28,8 @@ static NSString * const MBResponseRegionKey    = @"bbox";
     if((self = [super init]))
     {
         [self setRanges:[dictionary objectForKeyPath:MBResponseRangesKey]];
-        
+        [self setPaymentOptions:[dictionary objectForKeyPath:MBResponsePaymentOptionsKey]];
+      
         NSArray        *array        = [dictionary objectForKeyPath:MBResponseAddressesKey];
         NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:[array count]];
         
