@@ -41,6 +41,8 @@
 	<true/>
 	<key>MBAPIAccessHost</key>
 	<string>http://meterbeater.branigan.ca:4512</string>
+	<key>MBAPIAccessHostDev</key>
+	<string>http://localhost:4512</string>
 	<key>MBAPIAccessInfoEndpoint</key>
 	<string>/info.html</string>
 	<key>MBAPIAccessMapEndpoint</key>
